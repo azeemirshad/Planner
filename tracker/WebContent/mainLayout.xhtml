@@ -1,0 +1,568 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:loadBundle var="bndl" basename="bundle" />
+<f:loadBundle var="fd"
+	basename="c4i.sw.aviMap.ui.resources.labelsnTitles" />
+<f:loadBundle var="titles"
+	basename="c4i.sw.aviMap.ui.resources.labelsnTitles" />
+<f:loadBundle var="app"
+	basename="c4i.sw.aviMap.ui.resources.application" />
+<f:loadBundle var="nav"
+	basename="c4i.sw.aviMap.ui.resources.navigations" />
+<h:head>
+	<h:outputScript library="jqplot-plugins"
+		name="jqplot.pointLabels.min.js" />
+	<link rel="shortcut icon"
+		href="${facesContext.externalContext.requestContextPath}/resources/images/#{pageManager.theme}/favicon.png"
+		type="image/x-icon" />
+	<link rel="icon"
+		href="${facesContext.externalContext.requestContextPath}/resources/images/#{pageManager.theme}/animated_favicon.gif"
+		type="image/gif" />
+
+	<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
+	<title><ui:insert name="title" /></title>
+	<link rel="STYLESHEET" type="text/css"
+		href="${facesContext.externalContext.requestContextPath}/resources/css/#{pageManager.theme}.css" />
+
+	<style>
+#topMenu {
+	z-index: 2 !important;
+}
+
+#topMenu div {
+	overflow: visible;
+}
+</style>
+
+	<script>
+	function focusOnto(elementId)
+	{
+	    window.location.hash=elementId;
+	}
+		
+	function HandleOnClose()
+	{
+		//	var contextpath = cpath
+		//alert ("X : "  + window.event.clientX + "  Y: " + window.event.clientY +
+		//		"You\'re using " + BrowserDetect.browser + ' ' + BrowserDetect.version + ' on ' + BrowserDetect.OS );
+		if(window.event)
+		{
+			if(BrowserDetect.version == '6')
+			{
+				if( (window.event.clientY &lt; 0) &amp;&amp; (window.event.clientX &lt; 0) )
+				{
+				//	alert ( 'opening log off window...'+'#{facesContext.externalContext.requestContextPath}/pages/includes/inLogOut.jsp');
+				//	window.open('#{facesContext.externalContext.requestContextPath}/pages/includes/inLogOut.jsf','SCEnEx',
+				//			'width=350px,height=300px, dependent=yes, menubar=no, toolbar=no');
+				submitForm('myForm:hiddenCommandLink')
+					logOffApp();
+
+			   	}
+			}
+			else if (BrowserDetect.version=='7')
+			{
+				if( (window.event.clientY &lt; 0) || (window.event.clientX &lt; 0) )
+				{
+			//		alert (" calling close off 7");
+				//	alert ( 'opening log off window...'+'#{facesContext.externalContext.requestContextPath}/pages/includes/inLogOut.jsp');
+				//	window.open("#{facesContext.externalContext.requestContextPath}/pages/logOut.jsf",".::M T T S::.",
+				//			"width=350px,height=300px");
+				submitForm("myForm:hiddenCommandLink")
+				//logOffApp();
+
+
+			   	}
+			}
+
+			else if (BrowserDetect.version=='8')
+			{
+				if( (window.event.clientY &lt; 0) || (window.event.clientX &lt; 0) )
+				{
+				//	alert (" calling close off 8");
+				//	alert ( 'opening log off window...'+'#{facesContext.externalContext.requestContextPath}/pages/includes/inLogOut.jsp');
+				//	window.open("#{facesContext.externalContext.requestContextPath}/pages/logOut.jsf",".::M T T S::.",
+				//			"width=350px,height=300px");
+					submitForm("myForm:hiddenCommandLink")
+				//	logOffApp();
+
+
+			   	}
+			}
+
+			else if (BrowserDetect.version=='Firefox')
+			{
+			//	alert ("X : "  + window.event.clientX + "  Y: " + window.event.clientY +
+			//					"You\'re using " + BrowserDetect.browser + ' ' + BrowserDetect.version + ' on ' + BrowserDetect.OS );
+				if( (window.event.clientY &lt; 0) || (window.event.clientX &lt; 0) )
+				{
+			//		alert (" calling close off FF");
+				//	alert ( 'opening log off window...'+'#{facesContext.externalContext.requestContextPath}/pages/includes/inLogOut.jsp');
+				//	window.open("#{facesContext.externalContext.requestContextPath}/pages/logOut.jsf",".::M T T S::.",
+				//			"width=350px,height=300px");
+					submitForm("myForm:hiddenCommandLink")
+				//logOffApp();
+
+
+			   	}
+			}
+		}
+	}
+
+	var BrowserDetect = {
+			init: function () {
+				this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
+				this.version = this.searchVersion(navigator.userAgent)
+					|| this.searchVersion(navigator.appVersion)
+					|| "an unknown version";
+				this.OS = this.searchString(this.dataOS) || "an unknown OS";
+			},
+			searchString: function (data) {
+				for (var i=0;i &lt; data.length; i++)	{
+					var dataString = data[i].string;
+					var dataProp = data[i].prop;
+					this.versionSearchString = data[i].versionSearch || data[i].identity;
+					if (dataString) {
+						if (dataString.indexOf(data[i].subString) != -1)
+							return data[i].identity;
+					}
+					else if (dataProp)
+						return data[i].identity;
+				}
+			},
+			searchVersion: function (dataString) {
+				var index = dataString.indexOf(this.versionSearchString);
+				if (index == -1) return;
+				return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
+			},
+			dataBrowser: [
+				{
+					string: navigator.userAgent,
+					subString: "Chrome",
+					identity: "Chrome"
+				},
+				{ 	string: navigator.userAgent,
+					subString: "OmniWeb",
+					versionSearch: "OmniWeb/",
+					identity: "OmniWeb"
+				},
+				{
+					string: navigator.vendor,
+					subString: "Apple",
+					identity: "Safari",
+					versionSearch: "Version"
+				},
+				{
+					prop: window.opera,
+					identity: "Opera",
+					versionSearch: "Version"
+				},
+				{
+					string: navigator.vendor,
+					subString: "iCab",
+					identity: "iCab"
+				},
+				{
+					string: navigator.vendor,
+					subString: "KDE",
+					identity: "Konqueror"
+				},
+				{
+					string: navigator.userAgent,
+					subString: "Firefox",
+					identity: "Firefox"
+				},
+				{
+					string: navigator.vendor,
+					subString: "Camino",
+					identity: "Camino"
+				},
+				{		// for newer Netscapes (6+)
+					string: navigator.userAgent,
+					subString: "Netscape",
+					identity: "Netscape"
+				},
+				{
+					string: navigator.userAgent,
+					subString: "MSIE",
+					identity: "Explorer",
+					versionSearch: "MSIE"
+				},
+				{
+					string: navigator.userAgent,
+					subString: "Gecko",
+					identity: "Mozilla",
+					versionSearch: "rv"
+				},
+				{ 		// for older Netscapes (4-)
+					string: navigator.userAgent,
+					subString: "Mozilla",
+					identity: "Netscape",
+					versionSearch: "Mozilla"
+				}
+			],
+			dataOS : [
+				{
+					string: navigator.platform,
+					subString: "Win",
+					identity: "Windows"
+				},
+				{
+					string: navigator.platform,
+					subString: "Mac",
+					identity: "Mac"
+				},
+				{
+					   string: navigator.userAgent,
+					   subString: "iPhone",
+					   identity: "iPhone/iPod"
+			    },
+				{
+					string: navigator.platform,
+					subString: "Linux",
+					identity: "Linux"
+				}
+			]
+
+		};
+		BrowserDetect.init();
+
+		function submitForm(commandLinkId)
+		{
+			//var fire = document.getElementById(commandLinkId);
+		//	if (document.createEvent)
+		//	{
+		//		var eventObject = document.createEvent("MouseEvents");
+		//		eventObject.initEvent( "click", true, false );
+		//		fire.dispatchEvent(eventObject);
+		//	}
+			//	else if (document.createEventObject);
+		//	{
+		//		fire.fireEvent("onclick");
+		//	}
+
+
+			document.getElementById('myForm:hiddenCommandLink').onclick();
+		}
+
+
+		function clearHistory()
+		{
+			window.history.forward(1);
+			return true;
+		}
+		function ext() {
+			 this.cfg.seriesDefaults.rendererOptions.dataLabelThreshold = 1;
+	            this.cfg.seriesDefaults.rendererOptions.dataLabelPositionFactor = ".60";
+	          
+	            this.cfg.highlighter = {
+	            		   
+	            		sizeAdjust: 3,
+            		 	show: true,
+            		 	 tooltipAxes: 'pieref',
+	            		    tooltipAxisX: 6,
+	    	                tooltipAxisY: 9,
+            			tooltipFade: true,
+            		    mouseTracking: true, 
+            		 	formatString: '%s', 
+                    	useAxesFormatters:false 
+	                    	
+	                      
+	            		                   
+	            };
+	            
+		}
+		function ext1() {
+			
+	            this.cfg.seriesDefaults.rendererOptions.dataLabelThreshold=0.5;
+	            this.cfg.seriesDefaults.rendererOptions.dataLabelPositionFactor= "0.7";
+	            this.cfg.seriesDefaults.rendererOptions.startAngle = -50;
+	            this.cfg.seriesDefaults.rendererOptions.dataLabelCenterOn=false;
+	            this.cfg.highlighter = {
+	            		sizeAdjust: 3,
+	            		 	show: true,
+	            		    tooltipAxes: 'pieref',
+	            		    tooltipAxisX: 6,
+	    	                tooltipAxisY: 9,
+	            			tooltipFade: true,
+	            		    mouseTracking: true, 
+	            		 	formatString: '%s', 
+	                    	useAxesFormatters:false 
+	                    
+	                        
+	            		                   
+	            };
+	           
+	            
+		}
+
+		function ext2() {
+			   this.cfg.axes = {
+			       xaxis:
+			       {
+			           tickInterval: 10,
+			           tickOptions: { 
+			               formatString: '%s', 
+			            		useAxesFormatters:false 
+			           } 
+			       }
+			   };
+			}
+		function extSqn() {
+			
+            this.cfg.seriesDefaults.rendererOptions.dataLabelThreshold=0.5;
+            this.cfg.seriesDefaults.rendererOptions.dataLabelPositionFactor= "0.7";
+            this.cfg.seriesDefaults.rendererOptions.startAngle = -50;
+            this.cfg.seriesDefaults.rendererOptions.dataLabelCenterOn=true;
+            this.cfg.highlighter = {
+            		sizeAdjust: 3,
+            		 	show: true,
+            		    tooltipAxes: 'pieref',
+            		    tooltipAxisX: 9,
+    	                tooltipAxisY: 13,
+            			tooltipFade: true,
+            		    mouseTracking: true, 
+            		 	formatString: '%s', 
+                    	useAxesFormatters:false 
+                    
+                        
+            		                   
+            };
+           
+            
+	}
+
+		function graphBarAlternateColor() 
+		{
+			this.cfg.seriesDefaults.rendererOptions.varyBarColor = true;
+		} 
+
+
+
+
+		
+		function barChartExtenderWithoutLegend() {
+			
+			this.cfg.axes.xaxis.tickInterval = 1;
+			this.cfg.seriesDefaults.rendererOptions.barWidth = 18;
+
+		
+			this.cfg.axes.xaxis.tickOptions = {
+					fontSize : '10pt',
+					fontFamily : 'Calibri',
+					formatString : "$%'s",
+					 textColor : '#B40404',
+					 tickInterval: 5,
+					 angle:30
+					
+					
+			};
+
+			this.cfg.legend = {
+					show : true,
+					location : 'nw'
+			};
+			this.cfg.highlighter = {
+					show : true,
+         		  
+					tooltipContentEditor : tooltipContentEditor
+			};
+			
+			 this.cfg.axes.yaxis.tickOptions = {
+					 fontFamily : 'Calibri',
+					 formatString : '%d',
+				        textColor : '#B40404'
+				      
+				    };
+			        
+			      
+
+			        
+			function tooltipContentEditor(str, seriesIndex, pointIndex, plot) {
+				// display series_label, x-axis_tick, y-axis value
+				return  plot.series[seriesIndex]["label"] ;
+			}
+		}
+
+function barChartExtenderSmart() {
+			
+			this.cfg.axes.xaxis.tickInterval = 1;
+			this.cfg.seriesDefaults.rendererOptions.barWidth = 12;
+
+		
+			this.cfg.axes.xaxis.tickOptions = {
+					fontSize : '10pt',
+					fontFamily : 'Calibri',
+					formatString : "$%'s",
+					 textColor : '#190707',
+					 tickInterval: 5,
+					 angle:30		
+			};
+
+			this.cfg.legend = {
+					show : true,
+					location : 'nw'
+			};
+			this.cfg.highlighter = {
+					show : true,
+         		  
+					tooltipContentEditor : tooltipContentEditor
+			};
+			
+			 this.cfg.axes.yaxis.tickOptions = {
+					 fontFamily : 'Calibri',
+					 formatString : '%d',
+				        textColor : '#190707'
+				      
+				    };
+	        
+			function tooltipContentEditor(str, seriesIndex, pointIndex, plot) {
+				// display series_label, x-axis_tick, y-axis value
+				return  plot.series[seriesIndex]["label"] ;
+			}
+		}
+
+
+function barChartExtenderSB() {
+			
+			this.cfg.axes.xaxis.tickInterval = 1;
+			this.cfg.seriesDefaults.rendererOptions.barWidth = 8;
+
+		
+			this.cfg.axes.xaxis.tickOptions = {
+					fontSize : '10pt',
+					fontFamily : 'Calibri',
+					formatString : "$%'s",
+					 textColor : '#190707',
+					 angle:30		
+			};
+
+			this.cfg.legend = {
+					show : true,
+					location : 'nw'
+			};
+			this.cfg.highlighter = {
+					show : true,
+         		  
+					tooltipContentEditor : tooltipContentEditor
+			};
+			
+			 this.cfg.axes.yaxis.tickOptions = {
+					 fontFamily : 'Calibri',
+					 formatString : '%d',
+				        textColor : '#190707'
+				      
+				    };
+	        
+			function tooltipContentEditor(str, seriesIndex, pointIndex, plot) {
+				// display series_label, x-axis_tick, y-axis value
+				return  plot.series[seriesIndex]["label"] ;
+			}
+		}
+
+		
+		function barChartExtender() 
+		{
+			this.cfg.seriesDefaults.rendererOptions.barWidth = 15;
+			this.cfg.axes.yaxis.tickOptions.formatString = '%d';
+			this.cfg.axes.xaxis.tickOptions.tickInterval= 1;	
+	
+			this.cfg.legend = {
+					show :true,
+					
+					location : 'nw'
+			};
+			this.cfg.highlighter = {
+					show : true,
+					tooltipContentEditor : tooltipContentEditor
+			};
+			
+			function tooltipContentEditor(str, seriesIndex, pointIndex, plot) {
+				// display series_label, x-axis_tick, y-axis value
+				return  plot.series[seriesIndex]["label"] ;
+			}	
+			 
+			
+		}
+
+
+
+		function barChartExtenderWithoutLegendSB() {
+			this.cfg.seriesDefaults.rendererOptions.varyBarColor = true;
+			this.cfg.seriesDefaults.rendererOptions.barWidth = 35;
+			this.cfg.axes.xaxis.tickOptions = {
+					fontSize : '8pt',
+					fontFamily : 'Calibri',
+					formatString : "$%'s",
+					textColor : '#190707',
+					angle : 30
+			};
+			 this.cfg.axes.yaxis.tickOptions = {
+					 fontFamily : 'Calibri',
+					 formatString : '%d',
+				        textColor : '#190707'
+				      
+				    };
+
+			this.cfg.legend = {
+					show : false
+			};
+			this.cfg.highlighter = {
+					show : true,
+					tooltipContentEditor : tooltipContentEditor
+			};
+			function tooltipContentEditor(str, seriesIndex, pointIndex, plot) {
+				// display series_label, x-axis_tick, y-axis value
+				return plot.options.axes.xaxis.ticks[pointIndex] + ", "
+				+ plot.data[seriesIndex][pointIndex];
+			}
+		}
+		
+		
+		
+		
+</script>
+
+</h:head>
+
+<h:body
+	onkeydown="if (window.event.keyCode==13 || window.event.keyCode==116) window.event.keyCode=9;"
+	onload="clearHistory();" onunload="HandleOnClose();">
+
+	<p:layout fullPage="true">
+
+		<p:layoutUnit id="topMenu" position="north" style="border:0px;">
+			<h:panelGrid columns="1" styleClass="hdr">
+				<ui:include src="/templates/includes/hdr.xhtml" />
+			</h:panelGrid>
+
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" size="5%" style="border:0px;"
+			rendered="false">
+			<h:panelGrid columns="1" styleClass="loFooter">
+				<ui:include src="/templates/includes/footer.xhtml" />
+			</h:panelGrid>
+		</p:layoutUnit>
+
+
+		<p:layoutUnit position="center" styleClass="loCenter">
+			<h:panelGroup id="content" layout="block" style="width:97%;">
+				<ui:include src="/pages/#{pageManager.currentPage}.xhtml" />
+
+			</h:panelGroup>
+		</p:layoutUnit>
+
+	</p:layout>
+	<h:form id="myForm" style="visibility:hidden;">
+		<h:commandLink id="hiddenCommandLink"
+			style="display:none;visibility:hidden;">
+
+			<f:ajax immediate="true" event="click" />
+		</h:commandLink>
+	</h:form>
+</h:body>
+</html>

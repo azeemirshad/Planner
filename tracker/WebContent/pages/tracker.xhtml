@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+ 
+</h:head>
+<h:body>
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/templatePage.xhtml">
+		<ui:define name="title">Pak Army Asset Tracking</ui:define>
+		<ui:define name="top">Pak Army Asset Tracking</ui:define>
+		<ui:define name="content">
+			<h:form id="mapFrom">
+				<p:layout style="min-width:400px;min-height:600px;">
+    <p:layoutUnit position="west" resizable="true" size="180" maxSize="220">
+        
+   
+				<p:panel >
+				<p:row width="100%">
+					<p:column colspan="2">
+							<p:outputLabel value="Select Map Type:" />
+							<span class="ui-outputlabel-rfi">*</span>
+						</p:column>
+
+					<p:column colspan="8">
+						<p:selectOneMenu id="mapType" value="#{infoWindowView.mapType}" 
+							  style="width:125px" label="Map Types" >
+							 <p:ajax listener="#{infoWindowView.handleChange}" update="gmap"></p:ajax>
+							<f:selectItem itemLabel="Hybrid" itemValue="HYBRID"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Roadmap" itemValue="ROADMAP"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Satellite" itemValue="SATELLITE"
+								noSelectionOption="true" />
+							
+							<f:selectItem itemLabel="Terrain" itemValue="TERRAIN"
+								noSelectionOption="true" />
+							
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+				<p:row width="100%">
+				<p:dataGrid var="radio" value="#{infoWindowView.radios}" columns="1" layout="grid"
+			        paginator="false" id="radios"
+			        >
+			 
+			        <f:facet name="header">
+			            Legend
+			        </f:facet>
+			 
+			        <p:panel style="text-align:center">
+			            <h:panelGrid columns="2" style="width:100%">
+			                <p:graphicImage  name="images/#{radio.image}.png"/> 
+			 
+			                <h:outputText  value="#{radio.radioId}" />
+			 
+			               
+			            </h:panelGrid>
+			        </p:panel>
+			 
+			    </p:dataGrid>
+			    <p:commandButton value="Exit"
+											action="menu"
+											
+											styleClass="ui-priority-primary" icon="ui-icon-plus"></p:commandButton>
+   			</p:row>
+				</p:panel>
+		</p:layoutUnit>
+ 
+    	<p:layoutUnit position="center">
+       
+
+		<!-- p:growl id="messages" showDetail="true" life="2000" / -->
+		<p:poll interval="10" listener="#{infoWindowView.updatePoll}" update="gmap,radios"></p:poll>
+    <p:gmap id="gmap" center="#{infoWindowView.latitude},#{infoWindowView.longitude}" zoom="#{infoWindowView.zoom}"  mapTypeControl="false"
+     type="#{infoWindowView.mapType}" model="#{infoWindowView.advancedModel}" style="width:100%;height:500px" widgetVar="map">
+ 
+        <p:ajax event="overlaySelect" listener="#{infoWindowView.onMarkerSelect}" />
+        <p:ajax event="stateChange" listener="#{infoWindowView.onStateChange}" />
+        <!--  p:ajax event="maptypeid_changed" listener="#{infoWindowView.onMapTypeChange}" update="messages" / -->
+ 
+        <p:gmapInfoWindow id="infoWindow">
+        
+        <p:outputPanel>
+                <h:panelGrid columns="2" cellpadding="2">
+                    <h:outputText value="Radio Id:" />
+                    <h:outputText value="#{infoWindowView.marker.data.radioId}" style="font-weight: bold"/>
+ 
+                    <h:outputText value="Time:" />
+                    <h:outputText value="#{infoWindowView.marker.data.dateTime}" style="font-weight: bold"/>
+ 
+                    <h:outputText value="Speed:" />
+                    <h:outputText value="#{infoWindowView.marker.data.speed}km/h" style="font-weight: bold"/>
+                    <h:outputText value="Course:" />
+                    <h:outputText value="#{infoWindowView.marker.data.course}&deg;" style="font-weight: bold"/>
+                </h:panelGrid>
+            </p:outputPanel>
+        
+            <!--  p:outputPanel style="text-align: center; display: block; margin: auto">
+ 					<p:dataTable>
+ 					
+ 					</p:dataTable>
+                    <p:graphicImage name="/demo/images/antalya/#{infoWindowView.marker.data}" height="150" />
+                    <h:outputText value="#{infoWindowView.marker.data}" />
+                    <br />
+                    <h:outputText value="#{infoWindowView.marker.title}" />
+ 
+            </p:outputPanel -->
+        </p:gmapInfoWindow>
+    </p:gmap>
+ 
+    <!-- Preload for demo >
+    <p:outputPanel style="display:none">
+        <p:graphicImage name="/demo/images/antalya/konyaalti.png" />
+        <p:graphicImage name="/demo/images/antalya/ataturkparki.png" />
+        <p:graphicImage name="/demo/images/antalya/kaleici.png" />
+        <p:graphicImage name="/demo/images/antalya/karaalioglu.png" />
+    </p:outputPanel -->
+    <script>
+    //window.setTimeout(function() {
+    var map1 = new google.maps.Map(document.getElementById("mapFrom:gmap"));
+    if(map1){
+        //alert('map1 found');
+        map1.addListener('maptypeid_changed', function() { alert(map.getMapTypeId());  });
+        //alert(map1.getMapTypeId());
+    }
+    //}, 3000);
+    
+    //window.setTimeout(function() {
+    //	var gmap = map.getMap();
+    //   alert( gmap.getCenter()); 
+    //	map.addListener('maptypeid_changed', function() { alert(map.getMapTypeId());  });
+    //  }, 6000);
+	
+    			
+
+
+    
+    </script>
+        </p:layoutUnit>
+</p:layout>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,74 @@
+
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/templatePage.xhtml">
+		<ui:define name="title">Lab Software</ui:define>
+		<ui:define name="top">Lab Software</ui:define>
+		<ui:define name="content">
+
+<h:form>
+  
+				 	
+  	<p:panel id="panel2" header="Search Client" style="margin-top:20px; width: 100%; margin: 0 auto">
+					
+					<ui:include src="/pages/includes/basicSearchFields.xhtml"></ui:include>
+					
+				</p:panel>
+ 
+<p:commandButton value="Search" styleClass="richButton" icon="fa fa-fw fa-search" update="tbl1"
+  	action="#{registerClientBean.searchClients}"/> 
+ 
+  	
+  	
+  	<br/>
+  	
+  	<p:dataTable value="#{registerClientBean.clientsList}" var="mylist"
+					paginatorPosition="top" editable="true" rows="12" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					id="tbl1">
+
+					<p:column headerText="Client ID ">
+						<p:outputLabel value="#{mylist.id}" />
+					</p:column>
+					
+					<p:column headerText="RDC Token / GAMCA Slip">
+						<p:outputLabel value="#{mylist.rdcTokenNo}" /> / 
+						<p:outputLabel value="#{mylist.gamcaSlipNo}" />
+					</p:column>
+
+					<p:column headerText="First Name / Last Name">
+						<p:outputLabel value="#{mylist.firstName}" />/
+						<p:outputLabel value="#{mylist.lastName}" />
+					</p:column>
+
+					<p:column headerText="CNIC">
+						<p:outputLabel value="#{mylist.cnicNo}" />
+					</p:column>
+					
+					<p:column headerText="Passport No">
+						<p:outputLabel value="#{mylist.passportNo}" />
+					</p:column>
+					
+				
+					
+					
+					
+					
+					<p:column headerText="Update">
+						<p:commandButton action="#{navBean.navUpdateClientDetails}" icon="fa fa-fw fa-edit" value="Update Details">
+							<f:setPropertyActionListener target="#{registerClientBean.toAddClient}" value="#{mylist}" />
+						</p:commandButton>
+					</p:column>		
+
+				</p:dataTable>
+				
+				
+				<br/>
+				
+</h:form>
+</ui:define>
+	</ui:composition>
+

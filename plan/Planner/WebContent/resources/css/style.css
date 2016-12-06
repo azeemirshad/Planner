@@ -1,0 +1,283 @@
+@charset "utf-8";
+
+
+.labels {
+     font-weight: bold;
+     font-size: 12px;
+}
+
+.contents {
+     font-weight: bold;
+     font-size: 16px;
+}
+
+.tw-five-percent {
+     width: 25%;
+}
+
+.thirty-percent {
+     width: 30%;
+}
+
+.forty-percent {
+     width: 40%;
+}
+
+.fifty-percent {
+     width: 50%;
+}
+
+.sixty-percent {
+     width: 60%;
+}
+
+.seventy-percent {
+     width: 70%;
+}
+
+.ninty-percent {
+     width: 90%;
+}
+.top-alg {
+     vertical-align: top;
+}
+
+
+.centered {
+position: absolute;
+height: 100px;
+top: 0;
+bottom: 0;
+margin:auto;
+}
+
+.footer_menu {
+	border: 0 none;
+	overflow: hidden !important;
+	padding: 0.2em 0;
+	position: absolute;
+	overload: hidden;
+	margin: 0px;
+	top: auto;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	width: auto;
+	z-index: 0;
+	height: 92px;
+	display: block;
+	visibility: visible;
+}
+
+/* .ui-layout-unit .ui-layout-unit-content {
+	overflow: hidden !important;
+} */
+.ui-menu .ui-menuitem {
+	margin: 1px 10px !important;
+}
+
+.ui-menu .ui-menuitem a:hover {
+	/* position: absolute !important;
+    bottom: 100% !important; */
+	margin: 0 !important;
+	border: 0 !important;
+}
+
+.ui-outputlabel-rfi {
+	color: red !important;
+}
+
+.ui-message-error {
+	background: none !important;
+	border: none !important;
+	font-size: 14px !important;
+}
+
+.ui-growl {
+	position: fixed;
+	right: 778px !important;
+	top: 640px !important;
+	width: 301px !important;
+	height: 200px !important;
+}
+
+/* .ui-layout-unit-content {
+	overflow: hidden !important;
+} 
+
+.ul, li {
+    list-style-type: none;
+}
+*/
+
+.ui-message-error-detail {
+	font-weight: bold !important;
+}
+
+.ui-wizard-step-title {
+	float: left;
+	font-size: 14px !important;
+	margin: 0 3px 0 0;
+	padding: 0.4em;
+}
+
+ #dashboard {
+	background: #E0E8F0 !important;
+} 
+
+.ui-widget {
+	font-weight: bold !important;
+	font-size: 0.95em !important;
+}
+
+.ui-widget-header {
+	background: #2191c0 none repeat scroll 0 0 !important;
+	border: 1px solid #459e00 !important;
+	color: #ffffff !important;
+	font-weight: bold !important;
+}
+
+ .ui-state-highlight, .ui-widget-content .ui-state-highlight,
+	.ui-widget-header .ui-state-highlight {
+		background: #f8da4e repeat-x scroll 50% 50% !important;
+	border: 1px solid #fcd113;
+	color: #915608;
+	background: #ffffff none repeat scroll 0 0 !important;
+	border: 1px solid #2191c0 !important;
+	color: #2191c0 !important;
+	font-weight: bold !important;
+}
+
+.ui-datalist-content{
+	background: none !important;
+	border: 0px !important;
+}
+
+.ui-datalist-data{
+	background: none !important;
+}
+
+.ui-datalist-item{
+	border: none !important;
+background: transparent !important;
+background-image: none ;
+}
+.ui-layout-unit-footer {
+    padding: 0.2em 0.2em 0.2em 0.2em !important;
+}
+.ul {
+	style:list-style: none !important;
+}
+.richButton {
+    margin:0 10px 0 0;
+    padding:5px 10px 5px 10px;
+    height:35px;
+    width:90px;
+    font-size:15px;
+    color:#462626;
+    font-weight:bold;
+    border:1px #ccc solid;
+    border-radius:5px;
+    cursor:pointer;
+    font-family:Arial, Helvetica, sans-serif;
+    /* IE10 Consumer Preview */
+    background: -ms-linear-gradient(top, #FFFFFF 0%, #E3E3E3 100%);
+    /* Mozilla Firefox */
+    background: -moz-linear-gradient(top, #FFFFFF 0%, #E5E3E3 100%);
+    /* Opera */
+    background: -o-linear-gradient(top, #FFFFFF 0%, #E3E3E3 100%);
+    /* Webkit (Safari/Chrome 10) */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), color-stop(1, #E3E3E3));
+    /* Webkit (Chrome 11+) */
+    background: -webkit-linear-gradient(top, #FFFFFF 0%, #E3E3E3 100%);
+    /* W3C Markup, IE10 Release Preview */
+    background: linear-gradient(to bottom, #FFFFFF 0%, #E3E3E3 100%);
+}
+.richButton:hover:enabled {
+    /* IE10 Consumer Preview */
+    background: -ms-linear-gradient(top, #FFFFFF 0%, #CCCCCC 100%);
+    /* Mozilla Firefox */
+    background: -moz-linear-gradient(top, #FFFFFF 0%, #CCCCCC 100%);
+    /* Opera */
+    background: -o-linear-gradient(top, #FFFFFF 0%, #CCCCCC 100%);
+    /* Webkit (Safari/Chrome 10) */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), color-stop(1, #CCCCCC));
+    /* Webkit (Chrome 11+) */
+    background: -webkit-linear-gradient(top, #FFFFFF 0%, #CCCCCC 100%);
+    /* W3C Markup, IE10 Release Preview */
+    background: linear-gradient(to bottom, #FFFFFF 0%, #CCCCCC 100%);
+}
+.richButton:active:enabled {
+    /* IE10 Consumer Preview */
+    background: -ms-linear-gradient(top, #F0F0F0 0%, #CCCCCC 100%);
+    /* Mozilla Firefox */
+    background: -moz-linear-gradient(top, #F0F0F0 0%, #CCCCCC 100%);
+    /* Opera */
+    background: -o-linear-gradient(top, #F0F0F0 0%, #CCCCCC 100%);
+    /* Webkit (Safari/Chrome 10) */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F0F0F0), color-stop(1, #CCCCCC));
+    /* Webkit (Chrome 11+) */
+    background: -webkit-linear-gradient(top, #F0F0F0 0%, #CCCCCC 100%);
+    /* W3C Markup, IE10 Release Preview */
+    background: linear-gradient(to bottom, #F0F0F0 0%, #CCCCCC 100%);
+}
+.richButton:disabled {
+    font-weight: normal;
+    color: #888888;
+}
+
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.mybutton {
+    margin: 2px;
+    padding: 0;
+    border: 0;
+    width: 100px;
+    height: 20px;
+    background: url("#{resource['images/blue_check.png']}"); 
+    cursor: pointer;
+    overflow: visible;
+}
+
+.mybutton:hover {
+	border: 1;
+    background: url("#{resource['images/blue_check.png']}");
+}

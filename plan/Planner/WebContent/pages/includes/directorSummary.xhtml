@@ -1,0 +1,73 @@
+
+	<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+				 	
+  	<p:panel id="panel2" header="Activity Summary">
+  	
+  		<h:outputText value="From :"/>
+  				<h:panelGroup>
+    <p:calendar id="barFrom" value="#{chartBean.fromDate}"   navigator="true"  mask="true" pattern="dd-MM-yy"  maxdate="#{userBean.currDate}">
+    	<p:ajax event="dateSelect" listener="#{chartBean.onDateSelect}" update="panel2" />
+    </p:calendar>
+    
+    </h:panelGroup>
+    
+    <h:outputText value="To :"/>
+  	<h:panelGroup>
+    <p:calendar id="barTo" value="#{chartBean.toDate}" navigator="true" mask="true" pattern="dd-MM-yy"  maxdate="#{userBean.currDate}">
+   <p:ajax event="dateSelect" listener="#{chartBean.onDateSelect}" update="panel2" />
+    </p:calendar>
+    
+    </h:panelGroup>
+  				 
+					<p:chart  type="bar" model="#{chartBean.dateWiseChart}" style="height:300px" 
+					responsive="true" id="chart1" />
+					
+			<br/>					
+	</p:panel>
+	<br/>
+	 
+	 <p:panel id="panel3" header="Day Wise Cash Summary">
+  	
+  		<h:outputText value="From :"/>
+  				<h:panelGroup>
+    <p:calendar value="#{chartBean.fromDate2}" navigator="true" id="lineFrom"
+    pattern="dd-MM-yy" mask="true"
+    maxdate="#{userBean.currDate}">
+    <p:ajax event="dateSelect" listener="#{chartBean.onDateSelect2}" update="panel3" />
+        </p:calendar>
+    
+    </h:panelGroup>
+    
+    <h:outputText value="To :"/>
+  	<h:panelGroup>
+    <p:calendar value="#{chartBean.toDate2}" navigator="true" id="lineTo"
+    pattern="dd-MM-yy" mask="true" 
+    maxdate="#{userBean.currDate}">
+   <p:ajax event="dateSelect" listener="#{chartBean.onDateSelect2}" update="panel3" />
+    </p:calendar>
+    
+    </h:panelGroup>
+  				<h:outputScript>
+         function chartExtender() {
+             // this = chart widget instance
+             // this.cfg = options
+             this.cfg.seriesDefaults.rendererOptions.varyBarColor = true;
+         }
+     </h:outputScript>
+					<p:chart type="line" model="#{chartBean.dayWiseChart}" style="height:300px"
+					responsive="true" id="chart2"/>
+	<br/>
+	
+	
+	</p:panel>
+				
+				
+				<br/>
+	</ui:composition>
+

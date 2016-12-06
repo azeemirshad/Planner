@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+ 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+ 	xmlns:p="http://primefaces.org/ui"
+     xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head></h:head>
+<body>
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/templatePage.xhtml">
+
+		<ui:define name="content">
+
+<h:form id="form1">
+  
+ 				<p:panel id="panel1" header="#{crit.pageTitle}" style="text-align: center;">
+				<p:panelGrid style="margin-top:20px; width: 90%; margin: 0 auto"
+					columns="4">
+					
+					<p:outputLabel id="dateTimeLabel" value="Date / Time:" />
+					
+					<p:calendar id="datetime" value="#{addPlannerBean.toAddPlan.eventTime}" pattern="dd/MM/yyyy HH:mm" title="Format: dd/MM/yyyy HH:mm"/>
+		    		
+			    	<p:outputLabel value="Topic:" />
+			    	<p:inputText  id="topic" value="#{addPlannerBean.toAddPlan.topic}" ></p:inputText>
+		 
+				    <p:outputLabel value="Location:" />
+				    <p:autoComplete id="locAuto" dropdown="true"  value="#{addPlannerBean.toAddPlan.location}" completeMethod="#{addPlannerBean.completeLocations}" />
+		    
+		 
+				    <p:outputLabel value="Chaired By:" />
+				    <p:autoComplete id="chairAuto" dropdown="true"  value="#{addPlannerBean.toAddPlan.chairedBy}" completeMethod="#{addPlannerBean.completeChairedBys}" />
+		   		</p:panelGrid>
+		    	<p:panelGrid style="margin-top:20px; width: 90%; margin: 0 auto"
+							columns="2">
+				    <p:outputLabel value="Attended By:" />
+				    <p:panel id="attendedByPanel" >
+		    			<p:panelGrid style="margin-top:20px;border:none " 
+							columns="2">
+			     		<p:inputText   value="#{addPlannerBean.newAttendedBy.name}"></p:inputText>
+			     		<p:commandButton action="#{addPlannerBean.addAttendedBy}" icon="fa fa-fw fa-plus" update="attendedByPanel"></p:commandButton>
+	    				</p:panelGrid>
+				  		<p:pickList id="attendedByList" value="#{addPlannerBean.attendedByList}" var="att"
+				                itemValue="#{att}" itemLabel="#{att.name}" showTargetControls="true" 
+				                showCheckbox="true" responsive="true" converter="entityConverter"
+				               showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains">
+				 
+					        <f:facet name="sourceCaption">Available</f:facet>
+					        <f:facet name="targetCaption">Attendees</f:facet>
+					 
+					        <p:column style="width:90%;">
+					            <h:outputText value="#{att.name}" />
+					        </p:column>
+				    	</p:pickList>
+    				</p:panel>
+ 				</p:panelGrid>
+			</p:panel>
+		<p:commandButton value="Save" action="#{addPlannerBean.addPlan}" icon="fa fa-fw fa-save" ajax="false"></p:commandButton>
+ 
+ 	
+  	
+</h:form>
+</ui:define>
+	</ui:composition>
+
+</body></html>

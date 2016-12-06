@@ -1,0 +1,116 @@
+
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/templatePage.xhtml">
+		<ui:define name="title">Lab Software</ui:define>
+		<ui:define name="top">Lab Software</ui:define>
+		<ui:define name="content">
+
+<h:form>
+  
+
+  	<p:panel id="panel2"  header="#{crit.pageTitle}" style="text-align: center;">
+					<p:panelGrid style="margin-top:20px; width: 70%; margin: 0 auto"
+					columns="2">
+					
+					<p:outputLabel value="Enter ID"></p:outputLabel>
+ 					 <p:inputText value="#{adminBean.toSearchUser.id}"></p:inputText>
+ 					 
+					<p:outputLabel value="Enter Username"></p:outputLabel>
+ 					 <p:inputText value="#{adminBean.toSearchUser.userName}"></p:inputText>
+ 
+  						<p:outputLabel value="Enter Name"></p:outputLabel>
+  						<p:inputText value="#{adminBean.toSearchUser.name}"></p:inputText>
+  						
+  						<p:outputLabel value="Select Profile Status"></p:outputLabel>
+  						<p:selectOneMenu value="#{adminBean.toSearchUser.profileStatus}">
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItem itemLabel="Current" itemValue="Current" />
+							<f:selectItem itemLabel="Deleted" itemValue="Deleted" />
+						</p:selectOneMenu>
+					
+					
+ 					 
+					</p:panelGrid>
+				</p:panel>
+ 
+ 
+ 
+  	<p:commandButton value="Search" action="#{adminBean.searchUsers}" icon="fa fa-fw fa-search" update="tbl1"/>
+  	
+  	<br/>
+  	
+  	<p:dataTable value="#{adminBean.usersList}" var="mylist" id="tbl1"
+					paginatorPosition="top" editable="true" rows="12" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					>
+
+					<p:column headerText="ID" style="width:20px;">
+						<h:outputText value="#{mylist.id}" />
+					</p:column>
+					
+					<p:column headerText="User Name">
+						<h:outputText value="#{mylist.userName}" />
+					</p:column>
+
+					<p:column headerText="Name">
+						<p:inputText value="#{mylist.name}" />
+					</p:column>
+
+					<p:column headerText="Appointment">
+						<p:inputText value="#{mylist.appointment}" />
+					</p:column>
+					
+					<p:column headerText="Section">
+						<p:inputText value="#{mylist.section}" />
+					</p:column>
+
+					 <p:column headerText="System Admin">
+					  <p:selectOneMenu value="#{mylist.roleAdmin}">
+  						<f:selectItem itemLabel="N" itemValue="N"></f:selectItem>
+  						<f:selectItem itemLabel="Y" itemValue="Y"></f:selectItem>
+  						</p:selectOneMenu>
+  					</p:column>
+  					
+  					<p:column headerText="Add/Edit">
+					  <p:selectOneMenu value="#{mylist.roleAddn}">
+  						<f:selectItem itemLabel="N" itemValue="N"></f:selectItem>
+  						<f:selectItem itemLabel="Y" itemValue="Y"></f:selectItem>
+  						</p:selectOneMenu>
+  					</p:column>
+  					
+  					<p:column headerText="View">
+					  <p:selectOneMenu value="#{mylist.roleView}">
+  						<f:selectItem itemLabel="N" itemValue="N"></f:selectItem>
+  						<f:selectItem itemLabel="Y" itemValue="Y"></f:selectItem>
+  						</p:selectOneMenu>
+  					</p:column>
+  					
+  					
+					<p:column headerText="Profile Status">
+						<p:selectOneMenu value="#{mylist.profileStatus}">
+							<f:selectItem itemLabel="Current" itemValue="Current" />
+							<f:selectItem itemLabel="Deleted" itemValue="Deleted" />
+						</p:selectOneMenu>
+					</p:column>		
+					
+					<p:column headerText="Reset Password">
+					<p:commandButton action="#{adminBean.resetPassword}" icon="fa fa-fw fa-refresh"	>
+							<f:setPropertyActionListener target="#{adminBean.toSearchUser}" value="#{mylist}" />
+						</p:commandButton>
+						
+					</p:column>
+
+				</p:dataTable>
+				
+				
+				<br/>
+				
+					<p:commandButton value="Update" action="#{adminBean.updateUsers}" icon="fa fa-fw fa-save" ajax="false"></p:commandButton>
+</h:form>
+</ui:define>
+	</ui:composition>
+

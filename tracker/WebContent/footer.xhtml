@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+		<h:panelGrid styleClass="fbg" width="100%">
+			<br />
+		</h:panelGrid>
+
+		<h:panelGrid columns="2"  styleClass="disclaimer" rendered="false">
+			<h3 style="font-weight: bold; text-align: left; font-size: 12px;">
+			&#169; #{app.copyright} <script language="JavaScript">
+<!---->
+<!--date= new Date()-->
+<!--document.write(" - " + date.getFullYear())-->
+
+</script></h3>
+
+			<h:panelGroup width="50%" styleClass="link_bar" rendered="false">
+
+
+				<p:commandLink value="#{nav.summary}"
+					action="#{pageManager.navigateToPage}" immediate="true"
+					partialSubmit="true" update=":content"
+					process="@this, :content">
+					<f:param name="currentPage" value="#{nav.summary}" />
+				</p:commandLink>
+
+				<p:commandLink value="#{nav.searchInfo}"
+					action="#{pageManager.navigateToPage}" immediate="true"
+					partialSubmit="true" update=":content"
+					process="@this, :content">
+					<f:param name="currentPage" value="#{nav.searchInfo}" />
+				</p:commandLink>
+				<p:commandLink value="#{nav.newRecord}"
+				action="#{pageManager.navigateToPage}" immediate="true"
+					partialSubmit="true" update=":content"
+					process="@this, :content">
+					<f:param name="currentPage" value="#{nav.basicInfo}" />
+				</p:commandLink>
+				<p:commandLink
+					value="#{nav.manual}"
+					target="_blank"></p:commandLink>
+
+			</h:panelGroup>
+
+
+	</h:panelGrid>
+</ui:composition>

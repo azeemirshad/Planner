@@ -1,0 +1,423 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<script>
+	function closeWindow()
+{
+		window.opener = 'x';
+			window.close();
+}
+
+		</script>
+	</h:head>
+
+	<h:form id="navMenu" prependId="false"
+		rendered="#{userBean.currentUser.id!=null}">
+		<f:ajax render=":content " execute="@this">
+
+			<p:megaMenu id="menu" widgetVar="menuMain"
+				rendered="#{userBean.currentUser.id!=null}">
+
+				<p:menuitem id="menuDashBoard" value="#{titles.dashBoard}"
+					action="#{pageManager.navigateToPage}" immediate="true"
+					partialSubmit="true" update=":content, menu"
+					process="@this, :content" icon="ui-icon-home"
+					rendered="#{not (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+											and userBean.currentUser.appUser.role.name.name eq 'Clk'
+											and userBean.currentUser.appUser.role.tracker)}">
+					<f:param name="currentPage" value="#{titles.dashBoard}" />
+				</p:menuitem>
+
+
+
+				<p:submenu label="Msn Mgmt" icon="ui-icon-locked"
+					rendered="#{userBean.currentUser.appUser.role.orgRole.name ne 'CGS'}">
+					<p:column>
+						<p:submenu style="display: none;">
+							<p:menuitem id="menuLogMsnInfo" value="#{titles.logNewMsn}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								rendered="#{not (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+											and userBean.currentUser.appUser.role.name.name eq 'Clk'
+											and userBean.currentUser.appUser.role.tracker)}"
+								process="@this, :content" icon="ui-icon-plusthick">
+								<f:param name="currentPage" value="#{titles.logNewMsn}" />
+							</p:menuitem>
+							<p:menuitem id="menuMsnFlight" value="#{titles.msnFlight}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								rendered="#{userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+											and userBean.currentUser.appUser.role.name.name eq 'Clk'
+											and userBean.currentUser.appUser.role.tracker}"
+								process="@this, :content" icon="ui-icon-edit">
+								<f:param name="currentPage" value="#{titles.msnFlight}" />
+							</p:menuitem>
+
+						</p:submenu>
+					</p:column>
+				</p:submenu>
+
+
+				<p:menuitem id="menuSearch" value="#{titles.searchMsn}"
+					action="#{pageManager.navigateToPage}" immediate="true"
+					partialSubmit="true" update=":content, menu"
+					process="@this, :content" icon="ui-icon-search"
+					rendered="#{not (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+											and userBean.currentUser.appUser.role.name.name eq 'Clk'
+											and userBean.currentUser.appUser.role.tracker)}">
+					<f:param name="currentPage" value="#{titles.searchMsn}" />
+				</p:menuitem>
+
+
+
+
+				<p:menuitem id="menuAbout" value="#{nav.about}"
+					action="#{pageManager.navigateToPage}" immediate="true"
+					partialSubmit="true" update=":content, menu"
+					process="@this, :content" rendered="false" icon="ui-icon-contact">
+					<f:param name="currentPage" value="#{nav.about}" />
+				</p:menuitem>
+
+
+				<p:submenu label="States" icon="ui-icon-folder-open"
+					rendered="#{not (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+											and userBean.currentUser.appUser.role.name.name eq 'Clk'
+											and userBean.currentUser.appUser.role.tracker)}">
+					<p:column>
+						<p:submenu style="display: none;">
+
+							<p:menuitem id="impMsns" value="#{titles.impMsns}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-document"
+								rendered="#{userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+			or userBean.currentUser.appUser.role.orgRole.name eq 'CGS'}">
+								<f:param name="currentPage" value="#{titles.impMsns}" />
+							</p:menuitem>
+
+							<p:menuitem id="medEvacMsns" value="#{titles.medEvacMsns}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-document"
+								rendered="#{userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+			or userBean.currentUser.appUser.role.orgRole.name eq 'CGS'}">
+								<f:param name="currentPage" value="#{titles.medEvacMsns}" />
+							</p:menuitem>
+							<p:menuitem id="viewDailyAirState"
+								value="#{titles.viewDailyAirState}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-document">
+								<f:param name="currentPage" value="#{titles.viewDailyAirState}" />
+							</p:menuitem>
+							<p:menuitem id="addACState" value="#{titles.addACState}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-document"
+								rendered="#{userBean.currentUser.appUser.role.orgRole.name eq 'Sqn'}">
+								<f:param name="currentPage" value="#{titles.addACState}" />
+							</p:menuitem>
+							<p:menuitem id="viewACState" value="#{titles.viewACState}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-document"
+								rendered="#{(userBean.currentUser.appUser.role.orgRole.name eq 'Sqn')
+			or (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd')
+			or (userBean.currentUser.appUser.role.orgRole.name eq 'AvnGp')
+			or (userBean.currentUser.appUser.role.orgRole.name eq 'Corps')}">
+								<f:param name="currentPage" value="#{titles.viewACState}" />
+							</p:menuitem>
+
+							<p:menuitem id="addATPQRFState" value="#{titles.addATPQRFState}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-document"
+								rendered="#{userBean.currentUser.appUser.role.orgRole.name eq 'Sqn'}">
+								<f:param name="currentPage" value="#{titles.addATPQRFState}" />
+							</p:menuitem>
+
+						</p:submenu>
+					</p:column>
+				</p:submenu>
+
+
+				<p:submenu label="Pilot's Corner" icon="ui-icon-person"
+					rendered="#{not (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+													and userBean.currentUser.appUser.role.name.name eq 'Clk'
+													and userBean.currentUser.appUser.role.tracker)}">
+					<p:column>
+						<p:submenu style="display: none;">
+							<p:menuitem id="menuPltBasicData"
+								value="#{titles.pltProfileMgmt}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-contact">
+								<f:param name="currentPage" value="#{titles.pltProfileMgmt}" />
+							</p:menuitem>
+							<p:menuitem id="menuPltProficiency" value="#{titles.pilotProf}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-clipboard">
+								<f:param name="currentPage" value="#{titles.pilotProf}" />
+							</p:menuitem>
+							<p:menuitem id="menuPltMsnHist" value="#{titles.msnsHist}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-folder-open">
+								<f:param name="currentPage" value="#{titles.msnsHist}" />
+							</p:menuitem>
+						</p:submenu>
+					</p:column>
+				</p:submenu>
+
+
+				<p:submenu label="Adm" icon="ui-icon-gear">
+					<p:column>
+						<p:submenu style="display: none;">
+
+							<p:menuitem id="menuPasswordMgmt" value="#{titles.passwordMgmt}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.passwordMgmt}" />
+							</p:menuitem>
+							<p:menuitem id="menuAssetMgmt" value="#{titles.acHelInfoMgmt}"
+								rendered="#{userBean.currentUser.appUser.role.admin and userBean.currentUser.appUser.role.orgRole.name=='Sqn'}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.acHelInfoMgmt}" />
+							</p:menuitem>
+							<p:menuitem id="menuLocMgmt" value="#{titles.locMgmt}"
+								rendered="#{userBean.currentUser.appUser.role.admin
+								and (not (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+											and userBean.currentUser.appUser.role.name.name eq 'Clk'
+											and userBean.currentUser.appUser.role.tracker))}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.locMgmt}" />
+							</p:menuitem>
+							<p:menuitem id="menuBaseMgmt" value="#{titles.baseMgmt}"
+								rendered="false" action="#{pageManager.navigateToPage}"
+								immediate="true" partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.baseMgmt}" />
+							</p:menuitem>
+							<p:menuitem id="menuMsnTypeMgmt" value="#{titles.msnTypeMgmt}"
+								rendered="#{userBean.currentUser.appUser.role.admin and userBean.currentUser.appUser.role.orgRole.name=='Avn Comd'
+								and (not (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+											and userBean.currentUser.appUser.role.name.name eq 'Clk'
+											and userBean.currentUser.appUser.role.tracker))}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.msnTypeMgmt}" />
+							</p:menuitem>
+							<p:menuitem id="menuMsnPriMgmt" value="#{titles.msnPriMgmt}"
+								rendered="#{userBean.currentUser.appUser.role.admin and userBean.currentUser.appUser.role.orgRole.name=='Avn Comd'
+								and (not (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+											and userBean.currentUser.appUser.role.name.name eq 'Clk'
+											and userBean.currentUser.appUser.role.tracker))}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.msnPriMgmt}" />
+							</p:menuitem>
+							<p:menuitem id="menuEqptStatusMgmt"
+								value="#{titles.eqptStatusMgmt}"
+								rendered="#{userBean.currentUser.appUser.role.admin
+								and (not (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+											and userBean.currentUser.appUser.role.name.name eq 'Clk'
+											and userBean.currentUser.appUser.role.tracker))}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.eqptStatusMgmt}" />
+							</p:menuitem>
+
+							<p:menuitem id="menuMsnStatusMgmt"
+								value="#{titles.msnStatusMgmt}"
+								rendered="#{userBean.currentUser.appUser.role.admin
+								and (not (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+											and userBean.currentUser.appUser.role.name.name eq 'Clk'
+											and userBean.currentUser.appUser.role.tracker))}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.msnStatusMgmt}" />
+							</p:menuitem>
+
+
+							<p:menuitem id="menuRatingTypeMgmt"
+								value="#{titles.ratingTypeMgmt}"
+								rendered="#{userBean.currentUser.appUser.role.admin and userBean.currentUser.appUser.role.orgRole.name=='Avn Comd'
+								and (not (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+											and userBean.currentUser.appUser.role.name.name eq 'Clk'
+											and userBean.currentUser.appUser.role.tracker))}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.ratingTypeMgmt}" />
+							</p:menuitem>
+							<p:menuitem id="menuIRCategoryMgmt"
+								value="#{titles.iRCategoryMgmt}"
+								rendered="#{userBean.currentUser.appUser.role.admin and userBean.currentUser.appUser.role.orgRole.name=='Avn Comd'
+								and (not (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+											and userBean.currentUser.appUser.role.name.name eq 'Clk'
+											and userBean.currentUser.appUser.role.tracker))}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.iRCategoryMgmt}" />
+							</p:menuitem>
+							<p:menuitem id="menuMedCategoryMgmt"
+								value="#{titles.medCategoryMgmt}"
+								rendered="#{userBean.currentUser.appUser.role.admin and userBean.currentUser.appUser.role.orgRole.name=='Avn Comd'
+								and (not (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+											and userBean.currentUser.appUser.role.name.name eq 'Clk'
+											and userBean.currentUser.appUser.role.tracker))}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.medCategoryMgmt}" />
+							</p:menuitem>
+							<p:menuitem id="menuClrLevelMgmt" value="#{titles.clrLevelMgmt}"
+								rendered="#{userBean.currentUser.appUser.role.admin and userBean.currentUser.appUser.role.orgRole.name=='Avn Comd'
+								and (not (userBean.currentUser.appUser.role.orgRole.name eq 'Avn Comd'
+											and userBean.currentUser.appUser.role.name.name eq 'Clk'
+											and userBean.currentUser.appUser.role.tracker))}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.clrLevelMgmt}" />
+							</p:menuitem>
+
+							<p:menuitem id="menuManageAvnSop" value="#{titles.avnSopMgmt}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-gear">
+								<f:param name="currentPage" value="#{titles.avnSopMgmt}" />
+							</p:menuitem>
+
+							<p:menuitem id="menuManageThemes" value="#{titles.manageThemes}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-gear">
+								<f:param name="currentPage" value="#{titles.manageThemes}" />
+							</p:menuitem>
+
+						</p:submenu>
+
+						<p:submenu id="orgMgmt" value="Org Mgmt" label="Org Mgmt"
+							icon="ui-icon-gear"
+							rendered="#{userBean.currentUser.appUser.role.manager}">
+
+							<p:menuitem id="menuSqnMgmt" value="#{titles.sqnMgmt}"
+								rendered="#{userBean.currentUser.appUser.role.orgRole.name ne 'Sqn'}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.sqnMgmt}" />
+							</p:menuitem>
+							<p:menuitem id="menuAcMgmt" value="#{titles.acMgmt}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.acMgmt}" />
+							</p:menuitem>
+							<p:menuitem id="menuPilotMgmt" value="#{titles.pilotMgmt}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.pilotMgmt}" />
+							</p:menuitem>
+							<p:menuitem id="menuRoleMgmt" value="#{titles.roleMgmt}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								rendered="#{userBean.currentUser.appUser.role.admin
+								and (userBean.currentUser.appUser.role.orgRole.name=='Avn Comd'
+								or userBean.currentUser.appUser.role.orgRole.name=='CGS' )}"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-locked">
+								<f:param name="currentPage" value="#{titles.roleMgmt}" />
+							</p:menuitem>
+						</p:submenu>
+					</p:column>
+				</p:submenu>
+
+				<p:menuitem id="menuContactUs" value="#{nav.manual}"
+					icon="ui-icon-help" rendered="false">
+					<p:lightBox id="file" iframe="true">
+						<h:outputLink
+							value="${facesContext.externalContext.requestContextPath}/userManual/UserManual.pdf"
+							title="User Manual" styleClass="menuLink">User Manual
+							<f:ajax event="click" render="@this" immediate="true" />
+						</h:outputLink>
+					</p:lightBox>
+				</p:menuitem>
+
+
+				<p:submenu label="Help" icon="ui-icon-help">
+					<p:column>
+						<p:submenu style="display: none;" icon="ui-icon-script">
+							<p:menuitem id="menuUManual1" value="#{nav.manual}"
+								icon="ui-icon-script">
+
+								<p:commandLink styleClass="menuLink"
+									onclick="window.open('#{facesContext.externalContext.requestContextPath}/userManual/UserManual.pdf', 'mywindow','menubar=1,resizable=1,width=600,height=700'); return false;">
+										User Manual</p:commandLink>
+
+							</p:menuitem>
+							<p:menuitem id="menufeedBack" value="#{titles.feedBack}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-comment">
+								<f:param name="currentPage" value="#{titles.feedBack}" />
+							</p:menuitem>
+
+							<p:menuitem id="menuAvnSop" value="#{titles.avnSop}"
+								action="#{pageManager.navigateToPage}" immediate="true"
+								partialSubmit="true" update=":content, menu"
+								process="@this, :content" icon="ui-icon-script">
+								<f:param name="currentPage" value="#{titles.avnSop}" />
+							</p:menuitem>
+
+
+						</p:submenu>
+					</p:column>
+				</p:submenu>
+				<p:menuitem id="menuLogoff" value="Log Off"
+					actionListener="#{userBean.logOut}" onclick="dlg.show();"
+					icon="ui-icon-closethick">
+				</p:menuitem>
+			</p:megaMenu>
+		</f:ajax>
+		<h:panelGrid columns="2" width="100%" style="border:0px;">
+
+
+			<h:outputLabel styleClass="left_titleApp" value="#{app.title}" />
+		</h:panelGrid>
+		<h:panelGrid styleClass="userid_bar">
+			<h:outputLabel value="Welcome #{userBean.currentUser.displayName}"></h:outputLabel>
+		</h:panelGrid>
+	</h:form>
+
+	<p:dialog appendToBody="true" widgetVar="dlg" id="appLogOff"
+		width="420" height="100" modal="true" position="center"
+		onShow="javascript:setTimeout('closeWindow()',3000);" header="Log Off">
+		<h:form>
+			<h:outputText style="text-weight:bold" styleClass="button_pg"
+				value="Logging off session for AvMS ....."></h:outputText>
+			<h:panelGrid id="logOffInfo" columns="1" styleClass="button_pg">
+				<p:commandButton id="closeLink" style="align:center;" value="Close"
+					onclick="dlg.hide();" action="logOut"
+					oncomplete="javascript:window.open('','_parent','');window.close();">
+				</p:commandButton>
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+</ui:composition>

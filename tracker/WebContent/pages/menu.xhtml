@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+ 
+</h:head>
+<h:body>
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/templatePage.xhtml">
+		<ui:define name="title">Pak Army Asset Tracking &amp;  Video Survaillance</ui:define>
+		<ui:define name="top">Pak Army Asset Tracking &amp; Video Survaillance</ui:define>
+		<ui:define name="content">
+			<h:form id="mapFrom">
+				<p:layout style="min-width:400px;min-height:600px;">
+   
+        <p:layoutUnit position="center">
+   
+				<p:panel>
+				<p:messages id="msgs" severity="info, error, fatal" life="200"
+							autoUpdate="true" closable="true" />
+				<div align="center">
+				<p:panelGrid columns="2" styleClass="ui-panelgrid-blank" style="width:600px">
+					<p:column width="60%">
+									<p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
+										<!--  p:commandButton  
+											action="serial" 
+											 styleClass="ui-icon-myTrack">
+											 
+											 </p:commandButton -->
+											 <!--  p:commandButton icon="btnCreate" title="Icon Only"  styleClass="iconOnlyButton"/ -->
+											 <!--  h:commandButton image="../images/video.jpg" style="width:32px;height:32px;" 
+												 value="Video Survey" action="video" title="Video tracking">
+											</h:commandButton -->
+										<!--  p:commandButton icon="myIcon" styleClass="myButton" value="Custom Button" / -->
+										<p:commandButton styleClass="ui-icon-track" value="Radio Tracking" action="serial" ajax="false">
+										</p:commandButton>
+										<p:commandButton styleClass="ui-icon-video" value="Video Surveillance" action="video">
+										</p:commandButton>
+										<!--  p:commandLink action="serial"  >
+											<div align="center">
+											<h:graphicImage value="../images/track.jpg" width="200px" height="200px" style="border-radius: 25px;"/>
+											<br/>
+											<h:outputText value="Radio Tracking" />
+											</div>
+										</p:commandLink>
+										
+										<p:commandLink action="video"  >
+											<div align="center">
+											<h:graphicImage value="../images/video.jpg" width="200px" height="200px" style="border-radius: 25px;"/>
+											<br/>
+											<h:outputText value="Video Surveillance" />
+											</div>
+										</p:commandLink -->
+										
+									
+									</p:panelGrid>
+					</p:column>
+			<p:column width="40%">
+					
+						<p:graphicImage url="../images/harris.png" alt="Harris RF-7800S" title="Harris RF-7800S" ></p:graphicImage>
+						</p:column>
+					</p:panelGrid>
+				
+				</div>
+				</p:panel>
+		</p:layoutUnit>
+        
+</p:layout>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+ 
+</h:head>
+<h:body>
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/templatePage.xhtml">
+		<ui:define name="title">Pak Army Asset Tracking</ui:define>
+		<ui:define name="top">Pak Army Asset Tracking</ui:define>
+		<ui:define name="content">
+			<h:form id="mapFrom">
+				<p:layout style="min-width:400px;min-height:600px;">
+   
+        <p:layoutUnit position="center">
+   
+				<p:panel>
+				<p:messages id="msgs" severity="info, error, fatal" life="200"
+							autoUpdate="true" closable="true" />
+				<p:row width="100%">
+				<div align="center">
+					<p:column colspan="2" >
+							<p:outputLabel value="Select Serial Port:" />
+							<span class="ui-outputlabel-rfi">*</span>
+						</p:column>
+
+					<p:column colspan="8">
+						<p:selectOneMenu id="serialPort" value="#{harrisSerialListener.selectedSerialPort}" 
+							  style="width:125px" label="Map Types" required="true" requiredMessage="You did not select port.">
+							
+							<f:selectItems  value="#{harrisSerialListener.serialPorts}"/>
+							
+							
+						</p:selectOneMenu>
+						<p:message for="serialPort" display="tooltip" />
+					</p:column>
+					</div>
+				</p:row>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<p:row width="100%">
+					<p:column colspan="10">
+									<div align="center">
+										<p:commandButton value="Start"
+											action="#{harrisSerialListener.connect}"
+											
+											styleClass="ui-priority-primary" icon="ui-icon-plus"></p:commandButton>
+										<p:commandButton value="Skip"
+											action="tracker"
+											
+											styleClass="ui-priority-primary" icon="ui-icon-plus"></p:commandButton>
+										<p:commandButton value="Exit"
+											action="menu"
+											
+											styleClass="ui-priority-primary" icon="ui-icon-plus"></p:commandButton>
+
+										
+
+
+									</div>
+								</p:column>
+
+					
+				</p:row>
+				</p:panel>
+		</p:layoutUnit>
+        
+</p:layout>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

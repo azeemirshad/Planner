@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/templatePage.xhtml">
+		<ui:define name="title">Pak Army Remote Video Surveillance</ui:define>
+		<ui:define name="top">Pak Army Remote Video Surveillance</ui:define>
+		<ui:define name="content">
+			<h:form id="videoForm">
+				<p:layout>
+   
+        <p:layoutUnit position="center">
+   
+				<p:panel>
+				<p:messages id="msgs" severity="info, error, fatal" life="200"
+							autoUpdate="true" closable="true" />
+				<p:row width="100%">
+				<div align="center">
+				
+					<p:column colspan="2" >
+							<p:outputLabel value="Video URL:" />
+							<span class="ui-outputlabel-rfi">*</span>
+						</p:column>
+
+					<p:column colspan="8">
+						<p:inputText id="videoUrl" value="#{videoView.videoUrl}" requiredMessage="You did not specify URL." style="width:200px"></p:inputText>
+						<p:message for="videoUrl" display="tooltip" />
+					</p:column>
+					<p:column colspan="8">
+					<h:commandButton image="../images/play.png" style="width:32px;height:32px;"	
+						rendered="#{!videoView.playing}"	action="#{videoView.showVideo}">
+							
+						</h:commandButton>
+						<h:commandButton image="../images/pause.png" style="width:32px;height:32px;"	
+							rendered="#{videoView.playing}"	action="#{videoView.pauseVideo}">
+							
+						</h:commandButton>
+						
+					</p:column>
+					</div>
+				</p:row>
+				<!--  p:row width="100%">
+				<div align="center">
+				
+					<p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+					
+							
+							<p:graphicImage url="../images/speaker-32.png"></p:graphicImage>
+					
+
+					<h:panelGroup>
+						<h:inputHidden id="txt2" value="#{videoView.volume}"  />
+       						 <p:slider for="txt2" display="output" style="width: 100px" displayTemplate="{value}%"  
+       						 widgetVar="volSlider" onSlideEnd="updateVolume();"/>
+       						 <h:outputText id="output" value="#{sliderView.number2}%" />
+						</h:panelGroup>
+					
+					
+					
+						
+					</p:panelGrid>
+					</div>
+				</p:row -->
+				
+				<br />
+				<p:row width="100%">
+				
+				<div align="center">
+					
+						<p:media value="http://192.168.18.128:8080/video" width="420" height="315" player="flash"/>				 
+						<!--  OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+						     codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab"
+						     id="vlc" events="True">
+						   <param name="Src" value="#{videoView.videoUrl}" />
+						   <param name="ShowDisplay" value="True" />
+						   <param name="AutoLoop" value="False" />
+						   <param name="AutoPlay" value="True" />
+						   <embed id="vlcEmb"  type="application/x-vlc-plugin" version="VideoLAN.VLCPlugin.2" 
+						   		autoplay="yes" loop="no" width="448" height="336"
+						     target="#{videoView.videoUrl}" branding="false"></embed>
+						</OBJECT -->
+				</div>
+				</p:row>
+				<br/>
+				
+				<p:row width="100%">
+					<p:column colspan="10">
+									<div align="center">
+										<p:commandButton value="Exit"
+											action="menu"
+											
+											styleClass="ui-priority-primary" icon="ui-icon-plus"></p:commandButton>
+
+										
+
+
+									</div>
+								</p:column>
+
+					
+				</p:row>
+				</p:panel>
+		</p:layoutUnit>
+		<script>
+		function updateVolume(){
+			//alert('Update');
+			alert(document.getElementById("videoForm:txt2").value);
+			var vlc =  document.getElementById("videoForm:vlc");
+			vlc.audio.volume = document.getElementById("videoForm:txt2").value;
+		}
+	</script>
+        
+</p:layout>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+	
+</h:body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/videotemplatePage.xhtml">
+		<ui:define name="title">Pak Army Asset Tracking</ui:define>
+		<ui:define name="top">Pak Army Asset Tracking</ui:define>
+		<ui:define name="content">
+			<h:form id="mapFrom">
+				<p:layout>
+   
+        <p:layoutUnit position="center">
+   
+				<p:panel>
+				<p:messages id="msgs" severity="info, error, fatal" life="200"
+							autoUpdate="true" closable="true" />
+				<p:row width="100%">
+				<div class="centered">
+			<div id="mainContainer" class="centered">
+			<div id="controlContainer" class="ui-widget">
+				<div id="controlTable" class="ui-widget-content">
+					<ul id="controlButtons">
+						<li id="buttonPrev" class="button48  ui-corner-all" title="Previous"></li>
+						<li id="buttonPlay" class="button48  ui-corner-all paused" title="Play"></li>
+						<li id="buttonNext" class="button48  ui-corner-all" title="Next"></li>
+						<li id="buttonOpen" class="button48  ui-corner-all" title="Open Media"></li>
+						<li id="buttonStop" class="button48  ui-corner-all" title="Stop"></li>
+						<li id="buttonFull" class="button48  ui-corner-all" title="Full Screen"></li>
+						<li id="buttonSout" class="button48  ui-corner-all" title="Easy Stream"></li>
+					</ul>
+					<!--  ul id="buttonszone2" class="buttonszone">
+						<li id="buttonPlayList" class="button ui-widget ui-state-default ui-corner-all" title="<?vlc gettext("Hide / Show Library") ?>"><span class="ui-icon ui-icon-note"></span><?vlc gettext("Hide / Show Library") ?></li>
+						<li id="buttonViewer" class="button ui-widget ui-state-default ui-corner-all" title="<?vlc gettext("Hide / Show Viewer") ?>"><span class="ui-icon ui-icon-video"></span><?vlc gettext("Hide / Show Viewer") ?></li>
+						<li id="buttonStreams" class="button ui-widget ui-state-default ui-corner-all" title="<?vlc gettext("Manage Streams") ?>"><span class="ui-icon ui-icon-script"></span><?vlc gettext("Manage Streams") ?></li>
+						<li id="buttonOffsets" class="button ui-widget ui-state-default ui-corner-all" title="<?vlc gettext("Track Synchronisation") ?>"><span class="ui-icon ui-icon-transfer-e-w"></span><?vlc gettext("Track Synchronisation") ?></li>
+						<li id="buttonEqualizer" class="button ui-widget ui-state-default ui-corner-all" title="<?vlc gettext("Equalizer") ?>"><span class="ui-icon ui-icon-signal"></span><?vlc gettext("Equalizer") ?></li>
+						<li id="buttonBatch" class="button ui-widget ui-state-default ui-corner-all" title="<?vlc gettext("VLM Batch Commands") ?>"><span class="ui-icon ui-icon-suitcase"></span><?vlc gettext("VLM Batch Commands") ?></li>
+					</ul -->
+					<div id="volumesliderzone">
+						<div id="volumeSlider" title="Volume"><img src="images/speaker-32.png" class="ui-slider-handle" alt="volume"/></div>
+						<div id="currentVolume" class="dynamic">50%</div>
+					</div>
+					<div id="artszone">
+						<img id="albumArt" src="/art" width="141px" height="130px" alt="Album Art"/>
+					</div>
+					<div id="mediaTitle" class="dynamic"></div>
+					<div id="seekContainer">
+						<div id="seekSlider" title="Seek Time"></div>
+						<div id="currentTime" class="dynamic">00:00:00</div>
+						<div id="totalTime" class="dynamic">00:00:00</div>
+					</div>
+				</div>
+			</div>
+			<div id="libraryContainer" class="ui-widget">
+				<!--  ul id="buttonszone1" align="left" class="buttonszone ui-widget-content" style="overflow:hidden; white-space: nowrap;">
+					<li id="buttonShuffle" class="button ui-widget ui-state-default ui-corner-all" title="<?vlc gettext("Shuffle") ?>"><span class="ui-icon ui-icon-shuffle"></span><?vlc gettext("Shuffle") ?></li>
+					<li id="buttonLoop" class="button ui-widget ui-state-default ui-corner-all" title="<?vlc gettext("Loop") ?>"><span class="ui-icon ui-icon-refresh"></span><?vlc gettext("Loop") ?></li>
+					<li id="buttonRepeat" class="button ui-widget ui-state-default ui-corner-all" title="<?vlc gettext("Repeat") ?>"><span class="ui-icon ui-icon-arrowreturnthick-1-w"></span><?vlc gettext("Repeat") ?></li>
+					<li id="buttonPlEmpty" class="button ui-widget ui-state-default ui-corner-all" title="<?vlc gettext("Empty Playlist") ?>"><span class="ui-icon ui-icon-trash"></span><?vlc gettext("Empty Playlist") ?></li>
+					<li id="buttonPlAdd" class="button ui-widget ui-state-default ui-corner-all" title="<?vlc gettext("Queue Selected") ?>"><span class="ui-icon ui-icon-plus"></span><?vlc gettext("Queue Selected") ?></li>
+					<li id="buttonPlPlay" class="button ui-widget ui-state-default ui-corner-all" title="<?vlc gettext("Play Selected") ?>"><span class="ui-icon ui-icon-play"></span><?vlc gettext("Play Selected") ?></li>
+					<li id="buttonRefresh" class="button ui-widget ui-state-default ui-corner-all" title="<?vlc gettext("Refresh List") ?>"><span class="ui-icon ui-icon-arrowrefresh-1-n"></span><?vlc gettext("Refresh List") ?></li>
+				</ul -->
+				<div id="libraryTree" class="ui-widget-content"></div>
+			</div>
+			<div id="viewContainer" class="ui-widget">
+				<div id="mediaViewer" class="ui-widget-content">
+					<div href="http://localhost:8081/stream.flv" style="display:block; width:100%" id="player">
+						<!--   p><?vlc gettext("Loading flowplayer...") ?><br/><?vlc gettext("If nothing appears, check your internet connection.") ?></p -->
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+				<div align="center">
+					<h3 style="margin-top:0">Remote Video Surveillance</h3>
+										 
+						<OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+						     codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab"
+						     id="vlc" events="True">
+						   <param name="Src" value="rtsp://192.168.18.128:8554/video" />
+						   <param name="ShowDisplay" value="True" />
+						   <param name="AutoLoop" value="False" />
+						   <param name="AutoPlay" value="True" />
+						   <embed id="vlcEmb"  type="application/x-vlc-plugin" version="VideoLAN.VLCPlugin.2" 
+						   		autoplay="yes" loop="no" width="448" height="336"
+						     target="rtsp://192.168.18.128:8554/video" branding="false"></embed>
+						</OBJECT>
+				</div>
+				</p:row>
+				<br/>
+				
+				<p:row width="100%">
+					<p:column colspan="10">
+									<div align="center">
+										<p:commandButton value="Exit"
+											action="menu"
+											
+											styleClass="ui-priority-primary" icon="ui-icon-plus"></p:commandButton>
+
+										
+
+
+									</div>
+								</p:column>
+
+					
+				</p:row>
+				</p:panel>
+		</p:layoutUnit>
+        
+</p:layout>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

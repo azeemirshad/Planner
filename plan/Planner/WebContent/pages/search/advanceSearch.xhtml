@@ -1,0 +1,96 @@
+
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/templatePage.xhtml">
+
+		<ui:define name="content">
+
+<h:form>
+ 
+				 	
+  	<p:panel id="panel2"  header="#{crit.pageTitle}" style="text-align: center;">
+					<p:panelGrid style="margin-top:20px; width: 70%; margin: 0 auto"
+					columns="4">
+					
+					 
+					<p:outputLabel value="Plan ID"></p:outputLabel>
+ 					 <p:inputText value="#{advSearchBean.toSearchPlan.id}"></p:inputText>
+					<p:outputLabel value="Chaired By:" />
+    				<p:autoComplete id="chairAuto" dropdown="true"  value="#{advSearchBean.toSearchPlan.chairedBy}" completeMethod="#{addPlannerBean.completeChairedBys}" />
+    				<p:outputLabel value="Date / Time From:" />
+				    <p:calendar id="datetimeFrom" value="#{advSearchBean.dateFrom}" pattern="dd/MM/yyyy HH:mm" />
+				    <p:outputLabel value="Date / Time To:" />
+				    <p:calendar id="datetimeTo" value="#{advSearchBean.dateTo}" pattern="dd/MM/yyyy HH:mm" />
+ 					 <p:outputLabel value="Topic:" />
+    				<p:inputText   value="#{advSearchBean.toSearchPlan.topic}"></p:inputText>
+ 					<p:outputLabel value="Location:" />
+    				<p:autoComplete id="locAuto" dropdown="true"  value="#{advSearchBean.toSearchPlan.location}" completeMethod="#{addPlannerBean.completeLocations}" />
+ 	
+					</p:panelGrid>
+				</p:panel>
+ 
+ 
+ 
+  	<p:commandButton value="Search" icon="fa fa-fw fa-search" update="tbl1"
+  	action="#{advSearchBean.advacneSearchClients}"/>
+  	
+  	<br/>
+  	
+  	<p:dataTable value="#{advSearchBean.plansList}" var="cmt"
+					paginatorPosition="top" editable="true" rows="12" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					id="tbl1">
+
+					<p:column headerText="Id" width="10px" sortBy="#{cmt.id}">
+				            <h:outputText value="#{cmt.id}" />
+				        </p:column>
+				 
+				        <p:column filterBy="#{cmt.eventTime}" headerText="Date - Time" filterMatchMode="contains" sortBy="#{cmt.eventTime}">
+
+				            <h:outputText value="#{cmt.eventTime}" >
+				            	<f:convertDateTime pattern="dd/MM/yyyy HH:mm"></f:convertDateTime>
+				            </h:outputText>
+				        </p:column>
+				 
+				        <p:column headerText="IHD/CMT" sortBy="#{cmt.topic}">
+				            <!--  f:facet name="filter">
+				                <p:selectOneMenu onchange="PF('carsTable').filter()" >
+				                    <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true" />
+				                    <f:selectItems value="#{dtFilterView.brands}" />
+				                </p:selectOneMenu>
+				            </f:facet -->
+				            <h:outputText value="#{cmt.topic}" />
+				        </p:column>
+				         <p:column headerText="Location" sortBy="#{cmt.location}">
+				            <h:outputText value="#{cmt.location}" />
+				        </p:column>
+				        
+				        <p:column headerText="Chaired By" sortBy="#{cmt.chairedBy}">
+				            <h:outputText value="#{cmt.chairedBy}" />
+				        </p:column>
+				        
+				        <p:column headerText="Attended By">
+				            <h:outputText value="#{cmt.attendedByText}" />
+				        </p:column>
+				 
+				        <p:column filterBy="#{cmt.insertBy.section}" filterMatchMode="in" sortBy="#{cmt.insertBy.section}">
+				            <f:facet name="filter">
+				                <p:selectCheckboxMenu label="Section" onchange="PF('cmtsTable').filter()" panelStyle="width:125px" scrollHeight="150">
+				                    <f:selectItems value="#{addPlannerBean.allSections}" />
+				                </p:selectCheckboxMenu>
+				            </f:facet>
+				            <h:outputText value="#{cmt.insertBy.section}" />
+				        </p:column>
+				</p:dataTable>
+				
+				
+				<br/>
+				
+				
+</h:form>
+</ui:define>
+	</ui:composition>
+

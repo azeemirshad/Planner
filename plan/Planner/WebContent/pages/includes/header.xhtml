@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+
+<h:body>
+	
+		<f:ajax render=":content">
+			<p:menubar style="position:absolute;top: 115px;left: 12px;background: none !important;">
+				<p:menuitem value="Home" ajax="true" action="#{navBean.navHomePage}"
+					update=":content" icon="ui-icon-home" rendered="false">
+				</p:menuitem>
+
+				<p:submenu label="Add IHD/CMT" icon="fa fa-fw fa-plus" rendered="#{userBean.currentUser.roleAddn=='Y'}">
+					<p:menuitem value="Add New IHD/CMT" icon="fa fa-fw fa-plus-square"
+						ajax="true" name="pageViewID"
+						action="#{navBean.navAddPlanner}" update=":content" />
+					
+									
+				</p:submenu>
+				
+				
+				<p:submenu label="Advance Search" icon="fa fa-fw fa-search" 
+				rendered="#{(userBean.currentUser.roleAddn=='Y') || (userBean.currentUser.roleAdmin=='Y')}"
+				>
+					
+					<p:menuitem value="Search Plan" icon="fa fa-fw fa-search"
+						ajax="true" name="pageViewID"
+						action="#{navBean.navAdvanceSearch}" update=":content" />
+						
+					
+				</p:submenu>				
+
+				<p:submenu label="Admin" icon="fa fa-fw fa-gear"
+					>
+					
+						<p:menuitem value="Add New Users" rendered="#{userBean.currentUser.roleAdmin == 'Y'}" 
+						action="#{navBean.navAdminAddUsersPage}" update=":content"
+						icon="fa fa-fw fa-plus-square" />	
+						<p:separator />
+						<p:menuitem value="Manage Users" rendered="#{userBean.currentUser.roleAdmin == 'Y'}"
+						action="#{navBean.navAdminManageUsersPage}" update=":content"
+						icon="fa fa-fw fa-wrench" />					
+					
+					<p:separator />
+					<p:menuitem value="Change Password"
+						action="#{navBean.navAdminChangePassword}" update=":content"
+						icon="fa fa-fw fa-wrench"/>
+					
+					
+					
+				</p:submenu>
+
+			</p:menubar>
+		</f:ajax>
+		
+		<p:messages severity="info, error, fatal"   
+  			showDetail="true" autoUpdate="true" closable="true" />
+  			
+  		
+  		
+  		
+	
+</h:body>
+</html>

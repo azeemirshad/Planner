@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+    <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"></link>
+	<title>DG EME - IHD/CMTs</title>
+    
+        <link rel="stylesheet" href="css/style.css"></link>
+  
+  <body>
+
+	 	<div class="container">
+		<div align="center">
+	    <h1 style="font-size:24px;font-weight:bold;">DG Commitments</h1><span>EME Dte</span>
+	   
+	  </div>
+	<br/>
+      <div id="login" >
+
+        <h:form  name="aform">
+        	
+			<h:messages style="color:red !important;" severity="info, error, fatal" id="messag"
+  			showDetail="true" autoUpdate="true" closable="true" />
+
+          <fieldset class="clearfix">
+          <div align="center"><p:graphicImage name="images/calendar.gif" style="border-radius: 8px 8px 8px 8px; color: #606468;"></p:graphicImage></div>
+			<p><span class="fontawesome-user"></span><p:inputText  value="#{userBean.toSearchUser.userName}" label="Username" placeholder="Username" /></p> <!-- JS because of IE support; better: placeholder="Username" -->
+            <p><span class="fontawesome-lock"></span><p:password  value="#{userBean.toSearchUser.password}" label="Password" placeholder="Password"/> </p> <!-- JS because of IE support; better: placeholder="Password" -->
+            <p><h:commandButton value="Sign In" action="#{userBean.loginAction}"/>
+           </p>
+
+          </fieldset>
+
+        </h:form>
+
+        </div> <!-- end login -->
+
+    </div>
+
+  </body>
+</html>

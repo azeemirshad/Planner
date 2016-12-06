@@ -1,0 +1,184 @@
+@charset "utf-8";
+
+.footer_menu {
+	border: 0 none;
+	overflow: hidden !important;
+	padding: 0.2em 0;
+	position: absolute;
+	overload: hidden;
+	margin: 0px;
+	top: auto;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	width: auto;
+	z-index: 0;
+	height: 92px;
+	display: block;
+	visibility: visible;
+}
+
+
+
+/* .ui-layout-unit .ui-layout-unit-content {
+	overflow: hidden !important;
+} */
+.ui-menu .ui-menuitem {
+	margin: 1px 10px !important;
+}
+
+.ui-icon-myVideo{
+	width: 64px;
+	height:64px;
+    image: url("#{resource['images/video.jpg']}") !important;
+   size: 64px 64px;
+}
+.ui-widget .ui-icon-track {
+   width: 249px;
+   height: 249px;
+  	background: url("#{resource['images/track.jpg']}") no-repeat top;
+    background-size: 245px 220px;
+    background-repeat: no-repeat;
+    text-align:bottom;
+    padding-top:210px;
+    color: black;
+}
+.ui-widget .ui-icon-video {
+   width: 225px;
+   height: 225px;
+  	background: url("#{resource['images/video.jpg']}") no-repeat top;
+    background-size: 220px 200px;
+    background-repeat: no-repeat;
+    text-align:bottom;
+    padding-top:210px;
+    color: black;
+}
+.ui-icon-myTrack{
+    background-image: url("#{resource['images/track.jpg']}") !important;
+    background-size: 128px 128px;
+    width: 128px;
+	height: 150px;
+	background-repeat: no-repeat
+}
+.iconOnlyButton{
+    background: transparent !important;
+    margin: 0;
+    width: 226px;
+    height: 226px;
+}
+.btnCreate {
+    background-image: url("#{resource['images/track.jpg']}") !important;
+    width: 226px;
+    height: 226px;
+    
+    background-position: center;
+}
+.myButton .myIcon {
+                background-image: url("#{resource['images/track.jpg']}") !important;
+                width: 48px;
+                height:48px;
+                left: 1%;
+                top: 1%;
+                margin-left:0px;
+                margin-top:0px;
+                background-position: -100px -100px;
+                
+            }
+           
+            .myButton {
+                width: 249px;
+                height: 249px;
+                background-position: -100px -100px;
+             }
+
+.ui-menu .ui-menuitem a:hover {
+	
+	margin: 0 !important;
+	border: 0 !important;
+}
+
+.ui-outputlabel-rfi {
+	color: red !important;
+}
+
+.ui-message-error {
+	background: none !important;
+	border: none !important;
+	font-size: 14px !important;
+}
+
+.ui-growl {
+	position: fixed;
+	right: 778px !important;
+	top: 640px !important;
+	width: 301px !important;
+	height: 200px !important;
+}
+
+/* .ui-layout-unit-content {
+	overflow: hidden !important;
+} 
+
+.ul, li {
+    list-style-type: none;
+}
+*/
+
+.ui-message-error-detail {
+	font-weight: bold !important;
+}
+
+.ui-wizard-step-title {
+	float: left;
+	font-size: 14px !important;
+	margin: 0 3px 0 0;
+	padding: 0.4em;
+}
+
+ #dashboard {
+	background: #E0E8F0 !important;
+} 
+
+.ui-widget {
+	font-weight: bold !important;
+	font-size: 0.95em !important;
+}
+
+.ui-widget-header {
+	background: #2191c0 none repeat scroll 0 0 !important;
+	border: 1px solid #459e00 !important;
+	color: #ffffff !important;
+	font-weight: bold !important;
+}
+
+ .ui-state-highlight, .ui-widget-content .ui-state-highlight,
+	.ui-widget-header .ui-state-highlight {
+		background: #f8da4e repeat-x scroll 50% 50% !important;
+	border: 1px solid #fcd113;
+	color: #915608;
+	background: #ffffff none repeat scroll 0 0 !important;
+	border: 1px solid #2191c0 !important;
+	color: #2191c0 !important;
+	font-weight: bold !important;
+}
+
+.ui-datalist-content{
+	background: none !important;
+	border: 0px !important;
+}
+
+.ui-datalist-data{
+	background: none !important;
+}
+
+.ui-datalist-item{
+	border: none !important;
+background: transparent !important;
+background-image: none ;
+}
+.ui-layout-unit-footer {
+    padding: 0.2em 0.2em 0.2em 0.2em !important;
+}
+.ul {
+	style:list-style: none !important;
+}

@@ -1,0 +1,64 @@
+
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/templatePage.xhtml">
+		<ui:define name="title">Lab Software</ui:define>
+		<ui:define name="top">Lab Software</ui:define>
+		<ui:define name="content">
+
+<h:form>
+  
+
+				<p:panel id="panel1"  header="#{crit.pageTitle}" style="text-align: center;">
+					<p:panelGrid style="margin-top:20px; width: 90%; margin: 0 auto"
+					columns="2">
+					
+					<p:outputLabel value="Enter Username"></p:outputLabel>
+  <p:inputText value="#{adminBean.toAddUser.userName}"></p:inputText>
+ 
+  <p:outputLabel value="Enter Name"></p:outputLabel>
+  <p:inputText value="#{adminBean.toAddUser.name}"></p:inputText>
+  
+  <p:outputLabel value="Enter Appt/Designation"></p:outputLabel>
+  <p:autoComplete id="apptAuto" dropdown="true"  value="#{adminBean.toAddUser.appointment}" completeMethod="#{adminBean.completeAppointments}" />
+  
+  
+  <p:outputLabel value="Enter Section"></p:outputLabel>
+  <p:autoComplete id="sectionAuto" dropdown="true" value="#{adminBean.toAddUser.section}" completeMethod="#{adminBean.completeSections}" />
+ </p:panelGrid>
+ <p:panelGrid style="margin-top:20px; width: 90%; margin: 0 auto"
+					columns="4">
+  <p:outputLabel value="System Admin"></p:outputLabel>
+  <p:selectOneMenu value="#{adminBean.toAddUser.roleAdmin}">
+  	<f:selectItem itemLabel="N" itemValue="N"></f:selectItem>
+  	<f:selectItem itemLabel="Y" itemValue="Y"></f:selectItem>
+  </p:selectOneMenu>
+  
+ 
+  <p:outputLabel value="Add / Edit"></p:outputLabel>
+  <p:selectOneMenu value="#{adminBean.toAddUser.roleAddn}">
+  	<f:selectItem itemLabel="N" itemValue="N"></f:selectItem>
+  	<f:selectItem itemLabel="Y" itemValue="Y"></f:selectItem>
+  </p:selectOneMenu>
+  
+  <p:outputLabel value="View"></p:outputLabel>
+  <p:selectOneMenu value="#{adminBean.toAddUser.roleView}">
+  	<f:selectItem itemLabel="N" itemValue="N"></f:selectItem>
+  	<f:selectItem itemLabel="Y" itemValue="Y"></f:selectItem>
+  </p:selectOneMenu>
+  
+  
+					</p:panelGrid>
+				</p:panel>
+ 
+ 
+ 
+  	<p:commandButton value="Save" action="#{adminBean.addNewUser}" icon="fa fa-fw fa-save" ajax="false"></p:commandButton>
+  	
+</h:form>
+</ui:define>
+	</ui:composition>
+

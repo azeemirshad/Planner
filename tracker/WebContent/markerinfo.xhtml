@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view>
+        <h:head>
+        <link rel="STYLESHEET" type="text/css"
+		href="${facesContext.externalContext.requestContextPath}/resources/css/greentheme.css" />
+        
+        <script src="http://maps.google.com/maps/api/js?key=AIzaSyBE_pdoICQ0Or1k9gTSdw2cWZNxQ1m7sXU" type="text/javascript"></script>
+        </h:head>
+
+        <h:body>
+            
+		<h:form id="mapFrom">  
+		<div align="center">
+		<h:panelGrid columns="2" width="100%" style="border:0px;">
+					<p:graphicImage name="images/pakarmy.png" title="Pak Army Asset Tracking" width="64" height="64"/>
+					<h:outputLabel styleClass="left_titleApp" value="Pak Army Asset Tracking" />
+					
+		</h:panelGrid>
+		</div>
+		<p:growl id="messages" showDetail="true" life="2000" />
+		<p:poll interval="20" listener="#{infoWindowView.updatePoll}" update="gmap"></p:poll>
+    <p:gmap id="gmap" center="#{infoWindowView.latitude},#{infoWindowView.longitude}" zoom="#{infoWindowView.zoom}"  
+     type="HYBRID" model="#{infoWindowView.advancedModel}" style="width:100%;height:400px" widgetVar="map">
+ 
+        <p:ajax event="overlaySelect" listener="#{infoWindowView.onMarkerSelect}" />
+        <p:ajax event="stateChange" listener="#{infoWindowView.onStateChange}" update="messages" />
+        <!--  p:ajax event="maptypeid_changed" listener="#{infoWindowView.onMapTypeChange}" update="messages" / -->
+ 
+        <p:gmapInfoWindow id="infoWindow">
+        
+        <p:outputPanel>
+                <h:panelGrid columns="2" cellpadding="2">
+                    <h:outputText value="Radio Id:" />
+                    <h:outputText value="#{infoWindowView.marker.data.radioId}" style="font-weight: bold"/>
+ 
+                    <h:outputText value="Time:" />
+                    <h:outputText value="#{infoWindowView.marker.data.date} #{infoWindowView.marker.data.time}" style="font-weight: bold"/>
+ 
+                    <h:outputText value="Speed:" />
+                    <h:outputText value="#{infoWindowView.marker.data.speed}km/h" style="font-weight: bold"/>
+                    <h:outputText value="Course:" />
+                    <h:outputText value="#{infoWindowView.marker.data.course}&deg;" style="font-weight: bold"/>
+                </h:panelGrid>
+            </p:outputPanel>
+        
+            <!--  p:outputPanel style="text-align: center; display: block; margin: auto">
+ 					<p:dataTable>
+ 					
+ 					</p:dataTable>
+                    <p:graphicImage name="/demo/images/antalya/#{infoWindowView.marker.data}" height="150" />
+                    <h:outputText value="#{infoWindowView.marker.data}" />
+                    <br />
+                    <h:outputText value="#{infoWindowView.marker.title}" />
+ 
+            </p:outputPanel -->
+        </p:gmapInfoWindow>
+    </p:gmap>
+ 
+    <!-- Preload for demo >
+    <p:outputPanel style="display:none">
+        <p:graphicImage name="/demo/images/antalya/konyaalti.png" />
+        <p:graphicImage name="/demo/images/antalya/ataturkparki.png" />
+        <p:graphicImage name="/demo/images/antalya/kaleici.png" />
+        <p:graphicImage name="/demo/images/antalya/karaalioglu.png" />
+    </p:outputPanel -->
+    <script>
+    //window.setTimeout(function() {
+    var map1 = new google.maps.Map(document.getElementById("mapFrom:gmap"));
+    if(map1){
+        //alert('map1 found');
+        map1.addListener('maptypeid_changed', function() { alert(map.getMapTypeId());  });
+        //alert(map1.getMapTypeId());
+    }
+    //}, 3000);
+    
+    //window.setTimeout(function() {
+    //	var gmap = map.getMap();
+    //   alert( gmap.getCenter()); 
+    //	map.addListener('maptypeid_changed', function() { alert(map.getMapTypeId());  });
+    //  }, 6000);
+	
+    			
+
+
+    
+    </script>
+</h:form>
+		</h:body>
+		</f:view>
+		</html>

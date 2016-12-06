@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<title>Pak Army Asset Tracking</title>
+	
+	
+	  <link type="text/css" href="../css/ui-lightness/jquery-ui-1.8.13.custom.css" rel="stylesheet" />
+		<link type="text/css" href="../css/main.css" rel="stylesheet" />
+		<!--  script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.jstree.js"></script>
+		<script type="text/javascript" src="../js/ui.js"></script>
+		<script type="text/javascript" src="../js/controllers.js"></script -->
+		<script type="text/javascript">
+		//<![CDATA[
+			var pollStatus	=	true;
+			$(function(){
+				$('.button').hover(function(){$(this).addClass('ui-state-hover')},function(){$(this).removeClass('ui-state-hover')});
+				$('#buttonPlayList').click(function(){
+					$('#libraryContainer').animate({
+						height: 'toggle'
+					});
+					$('#buttonszone1').animate({
+						width: 'toggle'
+					});
+					return false;
+				});
+				$('#buttonViewer').click(function(){
+					$('#viewContainer').animate({
+						height: 'toggle'
+					})
+					return false;
+				});
+				$('#buttonEqualizer').click(function(){
+					updateEQ();
+					$('#window_equalizer').dialog('open');
+					return false;
+				})
+				$('#buttonOffsets').click(function(){
+					$('#window_offset').dialog('open');
+					return false;
+				});
+				$('#buttonBatch').click(function(){
+					$('#window_batch').dialog('open');
+					return false;
+				});
+				$('#buttonOpen').click(function(){
+					browse_target	=	'default';
+					browse();
+					$('#window_browse').dialog('open');
+					return false;
+				});
+				$('#buttonPrev').mousedown(function(){
+					intv	=	1;
+					ccmd	=	'prev';
+					setIntv();
+					return false;
+				});
+				$('#buttonPrev').mouseup(function(){
+					if(intv<=5){
+						sendCommand({'command':'pl_previous'});
+					}
+					intv	=	0;
+					return false;
+				});
+				$('#buttonNext').mousedown(function(){
+					intv	=	1;
+					ccmd	=	'next';
+					setIntv();
+					return false;
+				});
+				$('#buttonNext').mouseup(function(){
+					if(intv<=5){
+						sendCommand({'command':'pl_next'});
+					}
+					intv	=	0;
+					return false;
+				});
+				$('#buttonPlEmpty').click(function(){
+					sendCommand({'command':'pl_empty'})
+					updatePlayList(true);
+					return false;
+				});
+				$('#buttonLoop').click(function(){
+					sendCommand({'command':'pl_loop'});
+					return false;
+				});
+				$('#buttonRepeat').click(function(){
+					sendCommand({'command':'pl_repeat'});
+					return false;
+				});
+				$('#buttonShuffle').click(function(){
+					sendCommand({'command':'pl_random'});
+					return false;
+				})
+				$('#buttonRefresh').click(function(){
+				    updatePlayList(true);
+				    return false;
+				});
+				$('#buttonPlPlay').click(function(){
+					sendCommand({
+						'command': 'pl_play',
+						'id':$('.jstree-clicked','#libraryTree').first().parents().first().attr('id').substr(5)
+					})
+					return false;
+				});
+				$('#buttonPlAdd').click(function(){
+					$('.jstree-clicked','#libraryTree').each(function(){
+						if($(this).parents().first().attr('uri')){
+							sendCommand({
+								'command':'in_enqueue',
+								'input' : $(this).parents().first().attr('uri')
+							});
+						};
+					});
+					$('#libraryTree').jstree('deselect_all');
+					setTimeout(function(){updatePlayList(true);},1000);
+					return false;
+				});
+				
+				
+				
+				$('#viewContainer').animate({height: 'toggle'});
+			});
+			/* delay script loading so we won't block if we have no net access */
+			$.getScript('http://releases.flowplayer.org/js/flowplayer-3.2.6.min.js', function(data, textStatus){
+				$('#player').empty();
+				flowplayer("player", "http://releases.flowplayer.org/swf/flowplayer-3.2.7.swf");
+				/* .getScript only handles success() */
+			 });
+		//]]>
+		</script>
+	 
+	 
+	 
+	 
+	 
+	 
+</h:head>
+
+<h:body>
+	<p:layout fullPage="true">
+
+		<p:layoutUnit position="center" style="margin-top:50px;">
+			<f:facet name="header">
+
+				<div style="height: 70px;">
+				<h:panelGrid columns="2" width="100%" style="border:0px;">
+				<p:graphicImage name="images/pakarmy64.png" title="Pak Army Asset Tracking" width="64" height="64"/>
+					<h2>Pak Army Asset Tracking </h2>
+					</h:panelGrid>
+				</div>
+
+				
+			</f:facet>
+			
+
+			<br></br>
+			<p:panel id="content">
+				<ui:insert name="content">
+					<ui:include src="#{navBean.pageName}" />
+				</ui:insert>
+			</p:panel>
+			<!--  f:facet name="footer">
+				<div align="center">Developed by Techovative</div>
+			</f:facet -->
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>

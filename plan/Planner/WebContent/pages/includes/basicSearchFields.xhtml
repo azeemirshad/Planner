@@ -1,0 +1,22 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <p:panelGrid style="margin-top:20px; width: 60%; margin: 0 auto"
+					columns="2" id="searchFdsPanel" columnClasses="fifty-percent, fifty-percent">					 
+					 
+					<p:outputLabel value="Client ID"></p:outputLabel>
+ 					 <p:inputText value="#{registerClientBean.toSearchClient.id}"></p:inputText>
+ 					 
+ 					 <p:outputLabel value="Passport No"></p:outputLabel>
+ 					 <p:inputText id="passportNo" value="#{registerClientBean.toSearchClient.passportNo}"></p:inputText>
+ 					 
+ 					 <p:outputLabel value="GAMCA Slip"></p:outputLabel>
+ 					 <p:inputText value="#{registerClientBean.toSearchClient.gamcaSlipNo}"></p:inputText>
+ 					 			
+					</p:panelGrid>	
+    
+</ui:composition>

@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+
+<h:body>
+	<h:form>
+	
+		<f:ajax render=":content">
+			<p:menubar>
+				<p:menuitem value="Home" ajax="true" action="#{navBean.navHomePage}"
+					update=":content" icon="ui-icon-home">
+				</p:menuitem>
+
+				<p:submenu label="Manage Notes" icon="ui-icon-clock">
+					<p:menuitem value="Add Note Details" icon="ui-icon-plusthick"
+						ajax="true" name="pageViewID"
+						action="#{navBean.navAddNoteDetails}" update=":content" />
+					<p:separator />
+					<p:menuitem value="Add Indl Details" icon="ui-icon-plusthick"
+						ajax="true" name="pageViewID"
+						action="#{navBean.navAddIndlDetails}" update=":content" />
+					<p:separator />
+					<p:menuitem value="Add Visit Details" icon="ui-icon-plusthick"
+						ajax="true" name="pageViewID"
+						action="#{navBean.navAddVisitDetails}" update=":content" />
+				</p:submenu>
+
+				<p:menuitem value="Search" ajax="true"
+					action="#{navBean.navSearchPage}" update=":content"
+					icon="ui-icon-search">
+				</p:menuitem>
+
+				<p:submenu label="Admin" icon="ui-icon-gear"
+					rendered="#{userBean.currentUser.roles.siteAdmin=='Y'}">
+					<p:menuitem value="Manage User Roles"
+						action="#{navBean.navAdminRolesPage}" update=":content"
+						icon=" ui-icon-wrench" />
+					<p:separator />
+					<p:menuitem value="Manage DA Factors"
+						action="#{navBean.navAdminCalcFactorsPage}" update=":content"
+						icon=" ui-icon-wrench" />
+					<p:separator />
+					<p:menuitem value="Add Lookups"
+						action="#{navBean.navAdminLookUpsPage}" update=":content"
+						icon=" ui-icon-wrench" />
+					<p:separator />
+					<p:menuitem value="Manage Cat Rates"
+						action="#{navBean.navAdminRatesPage}" update=":content"
+						icon=" ui-icon-wrench" />
+				</p:submenu>
+
+			</p:menubar>
+		</f:ajax>
+
+	</h:form>
+</h:body>
+</html>

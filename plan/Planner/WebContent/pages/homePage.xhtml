@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/templatePage.xhtml">
+		<ui:define name="title">DG EME - IHD/CMTs</ui:define>
+		<ui:define name="top">DG EME - IHD/CMTs</ui:define>
+		<ui:define name="content">
+			<h:form id="homeform1">
+  					<div align="center">
+  					<p:panel id="panel1" header="#{crit.pageTitle}" style="text-align: center;" >
+  					<p:dataTable var="cmt" value="#{addPlannerBean.plansList}" widgetVar="cmtsTable" id="plansTable" 
+                 		emptyMessage="No records found" filteredValue="#{addPlannerBean.filteredPlansList}"
+                 		paginatorPosition="top" editable="true" rows="12" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}">
+ 						<f:facet name="{Exporters}">
+				 		<div style="float:right">
+				            <h:commandLink >
+				                <p:graphicImage name="/images/excel.png" width="24"/>
+				                <p:dataExporter type="xls" target="plansTable" fileName="IHDs" postProcessor="#{addPlannerBean.postProcessXLS}"/>
+				            </h:commandLink>
+				 
+				            <h:commandLink>
+				                <p:graphicImage name="/images/pdf.png" width="24"/>
+				                <p:dataExporter type="pdf" target="plansTable" fileName="IHDs" preProcessor="#{addPlannerBean.preProcessPDF}"/>
+				            </h:commandLink>
+				 
+				            </div>
+				        </f:facet>
+ 						
+				        <f:facet name="header">
+				       
+				            <p:outputPanel>
+				                <h:outputText value="Search all fields:" />
+				                <p:inputText id="globalFilter" onkeyup="PF('cmtsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+				            </p:outputPanel>
+				            
+				        </f:facet>
+				        
+				 		
+				 
+				        <p:column headerText="Id" width="10px" sortBy="#{cmt.id}" style="text-align:center;width: 5%" >
+				            <h:outputText value="#{cmt.id}" />
+				        </p:column>
+				 
+				        <p:column filterBy="#{cmt.eventTime}" headerText="Date - Time" filterMatchMode="contains" sortBy="#{cmt.eventTime}">
+		
+				           
+				            <h:outputText value="#{cmt.eventTime}" >
+				            	<f:convertDateTime pattern="dd/MM/yyyy HH:mm"></f:convertDateTime>
+				            </h:outputText>
+				        </p:column>
+				 
+				        <p:column headerText="IHD-CMT" sortBy="#{cmt.topic}" filterBy="#{cmt.topic}" filterMatchMode="contains">
+
+				            <h:outputText value="#{cmt.topic}" />
+				        </p:column>
+				         <p:column headerText="Location" sortBy="#{cmt.location}"  filterBy="#{cmt.location}" filterMatchMode="contains">
+				            <h:outputText value="#{cmt.location}" />
+				        </p:column>
+				        
+				        <p:column headerText="Chaired By" sortBy="#{cmt.chairedBy}" filterBy="#{cmt.chairedBy}" filterMatchMode="in">
+				        	<f:facet name="filter">
+				                <p:selectCheckboxMenu label="Select" onchange="PF('cmtsTable').filter()" panelStyle="width:125px" scrollHeight="150">
+				                    <f:selectItems value="#{addPlannerBean.chairedBys}" />
+				                </p:selectCheckboxMenu>
+				            </f:facet>
+				            <h:outputText value="#{cmt.chairedBy}" />
+				        </p:column>
+				        
+				        <p:column headerText="Attended By" exportable="false" style="text-align: left;" >
+				        	<p:commandButton update=":homeform1:attendedByDetail" oncomplete="PF('attendedByOP').show('#{component.clientId}')" icon="fa fa-fw fa-search" title="List of Attendees">
+								<f:setPropertyActionListener target="#{addPlannerBean.selectedPlan}" value="#{cmt}" />
+							</p:commandButton>
+				            <h:outputText value="#{cmt.attendedByText}" />
+				        </p:column>
+				 
+				        <p:column filterBy="#{cmt.insertBy.section}" headerText="Section" filterMatchMode="in" sortBy="#{cmt.insertBy.section}" style="width: 8%">
+				            <f:facet name="filter">
+				                <p:selectCheckboxMenu label="Section" onchange="PF('cmtsTable').filter()" panelStyle="width:125px" scrollHeight="150">
+				                    <f:selectItems value="#{addPlannerBean.allSections}" />
+				                </p:selectCheckboxMenu>
+				            </f:facet>
+				            <h:outputText value="#{cmt.insertBy.section}" />
+				        </p:column>
+					 	<p:column style="width: 8%" exportable="false">
+					 		<!--  p:commandButton id="trackBtn" icon="fa fa-fw fa-history" title="Track Report" -->
+					 		<p:commandButton update=":homeform1:trackDetail" oncomplete="PF('trackOP').show('#{component.clientId}')" icon="fa fa-fw fa-history" title="Track Report">
+								<f:setPropertyActionListener target="#{addPlannerBean.selectedPlan}" value="#{cmt}" />
+							</p:commandButton>
+							<p:commandButton action="#{navBean.navUpdatePlannerDetails}" icon="fa fa-fw fa-edit" title="Edit" 
+									rendered="#{userBean.currentUser.section == cmt.insertBy.section}">
+								<f:setPropertyActionListener target="#{addPlannerBean.toAddPlan}" value="#{cmt}" />
+							</p:commandButton>
+							<p:commandButton action="#{addPlannerBean.deletePlan}" icon="fa fa-fw fa-trash"  title="Delete" update="plansTable"
+									rendered="#{userBean.currentUser.section == cmt.insertBy.section}">
+								<f:setPropertyActionListener target="#{addPlannerBean.toAddPlan}" value="#{cmt}" />
+								<p:confirm header="Confirmation" message="Are you sure you want to delete this IHD/CMT?" icon="fa fa-fw fa-warning" />
+							</p:commandButton>
+							
+						</p:column>	
+				        
+				            
+				        
+				    </p:dataTable>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-fw fa-check" />
+				        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-fw fa-close" />
+				    </p:confirmDialog>
+				    <p:overlayPanel id="trackPanel" widgetVar="trackOP" showEffect="slide" hideEffect="fold" dynamic="true" 
+				    	style="width:400px" showCloseIcon="true">
+				        <p:outputPanel id="trackDetail" style="text-align:center;">
+				        <f:facet name="header" >
+							<p:outputLabel value="Track Report"/>
+						</f:facet>					 
+					
+						<p:dataTable value="#{addPlannerBean.selectedPlan.trackReport}" var="mylist"
+						paginatorPosition="top" editable="true" rows="13" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						id="tblTracking">
+	
+							<p:column headerText="Activity" style="width: 40%">
+								<p:outputLabel value="#{mylist.activity}" />
+							</p:column>
+							
+							<p:column headerText="Operator" style="width: 30%">
+								<p:outputLabel value="#{mylist.operator.loggedUserString}" />
+							</p:column>
+		
+							<p:column headerText="Time" sortable="true" sortBy="#{mylist.activityTime}" style="width: 30%">
+								<p:outputLabel value="#{mylist.activityTime}" >
+									<f:convertDateTime 
+									pattern="dd-MMM-yy hh:mm:ss a"></f:convertDateTime>
+								</p:outputLabel>						
+							</p:column>		
+	
+						</p:dataTable>	
+						</p:outputPanel>
+				    </p:overlayPanel>
+				    
+				    <p:overlayPanel id="attendedBYPanel" widgetVar="attendedByOP" showEffect="slide" hideEffect="fold" dynamic="true" 
+				    	style="width:200px" showCloseIcon="true">
+				        <p:outputPanel id="attendedByDetail" style="text-align:left;">
+				        <p:dataList value="#{addPlannerBean.selectedPlan.attendedBy}" var="att" type="ordered">
+						        <f:facet name="header">
+						            Attended By - List
+						        </f:facet>
+						        #{att.name}
+						    </p:dataList>	
+						</p:outputPanel>
+				    </p:overlayPanel>
+					</p:panel>
+				</div>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

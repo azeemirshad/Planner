@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM 
+    "classpath://org/hibernate/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="PlannerFactory">
+  <!-- Database connection settings -->
+  <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="connection.url">jdbc:mysql://192.168.18.135:3306/planner</property>
+  <property name="connection.username">planner</property>
+  <property name="connection.password">planner123</property>
+  <property name="hibernate.show_sql">true</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+  <!--  property name="hibernate.hbm2ddl.auto">create</property -->
+  
+  
+  <mapping class="com.plan.dal.dao.ApplicationUsers"/>
+  <mapping class="com.plan.dal.dao.WfPlanner"/>
+  <mapping class="com.plan.dal.dao.WfTrackReport"/>
+  <mapping class="com.plan.dal.dao.WfAttendedBy"/>
+  
+ </session-factory>
+</hibernate-configuration>
