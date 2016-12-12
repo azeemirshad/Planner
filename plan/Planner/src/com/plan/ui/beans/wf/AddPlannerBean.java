@@ -77,6 +77,13 @@ public class AddPlannerBean
 		
 	}
 
+	public void updateCurrentCmts()
+	{	
+		AddPlannerBll bll =new AddPlannerBll();
+		this.plansList = bll.getCurrentCmts();
+		System.out.println("**************** getCurrentCmts List retreived ... " + plansList.size());
+		//return "";
+	}
 	
 	public String getCurrentCmts()
 	{	
