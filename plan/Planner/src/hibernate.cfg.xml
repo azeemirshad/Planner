@@ -5,7 +5,7 @@
  <session-factory name="PlannerFactory">
   <!-- Database connection settings -->
   <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="connection.url">jdbc:mysql://192.168.18.135:3306/planner</property>
+  <property name="connection.url">jdbc:mysql://192.168.18.136:3306/planner</property>
   <property name="connection.username">planner</property>
   <property name="connection.password">planner123</property>
   <property name="hibernate.show_sql">true</property>

@@ -24,8 +24,10 @@ import org.primefaces.model.UploadedFile;
 
 import sun.misc.BASE64Decoder;
 
+import com.google.gson.Gson;
 import com.iac.web.util.FacesUtils;
 import com.plan.bll.wf.AddPlannerBll;
+import com.plan.dal.dao.Planner;
 import com.plan.dal.dao.WfAttendedBy;
 import com.plan.dal.dao.WfPlanner;
 import com.plan.ui.beans.PageNavigationBean;
@@ -299,7 +301,45 @@ public class AddPlannerBean
         }
     }
 	
-	
+	public void renderJson() throws IOException {
+	    FacesContext facesContext = FacesContext.getCurrentInstance();
+	    ExternalContext externalContext = facesContext.getExternalContext();
+	    externalContext.setResponseContentType("application/json");
+	    externalContext.setResponseCharacterEncoding("UTF-8");
+	    
+	    List<WfPlanner> currentplans = new AddPlannerBll().getCurrentCmts();
+	    List<Planner> plans = new ArrayList<Planner>();
+	    Planner plan = null;
+	    for (WfPlanner wfPlanner : currentplans) {
+	    	plan = new Planner();
+			plan.id = wfPlanner.getId().toString();
+			plan.eventTime = wfPlanner.getEventTime().getTime();
+			plan.topic = wfPlanner.getTopic();
+			plan.location = wfPlanner.getLocation();
+			StringBuilder builder = new StringBuilder();
+			int i = 0;
+			for (WfAttendedBy attendee : wfPlanner.getAttendedBy()) {
+				if(i>0)
+					builder.append(", ");
+				builder.append(attendee.getName() );
+				i++;
+			}
+			plan.attendedBy = builder.toString();
+//			plan.attendedBy = wfPlanner.getAttendedByText();
+			plan.chairedBy = wfPlanner.getChairedBy();
+			plan.section = wfPlanner.getInsertBy().getSection();
+			plans.add(plan);
+		}
+	    Gson gson = new Gson();
+	    String json = gson.toJson(plans);
+	    
+	    externalContext.getResponseOutputWriter().write(json);
+	    
+	    
+	    
+	    facesContext.responseComplete();
+	}
+
 	public WfPlanner getToAddPlan() {
 		return toAddPlan;
 	}
