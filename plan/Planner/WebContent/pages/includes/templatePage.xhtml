@@ -20,40 +20,40 @@
 				<h:form>
 				
 				<!--  p:graphicImage name="images/banner.png"  ></p:graphicImage -->
-				<div class="banner_holder">
-    				<div class="banner_holderImage"></div>  
-				<p:toolbar style="background: none !important;border: none !important;position:absolute;top:110px;right:12px;color:black !important;">	
+				<div style="background-image: url(#{request.contextPath}/resources/images/banner.png);float:top left;height: 150px;">
+				<p:toolbar style="background: none !important;border: none !important;">	
+				<f:facet name="left">
 				
+				<p:commandLink action="#{navBean.navHomePage}" style="color:white;font-size:50px;">	<h1>DG EME - IHD/CMTs</h1> </p:commandLink>
+				</f:facet>
 
 				
 				
 				<f:facet name="right" >
 				
 					<p:outputLabel value="#{userBean.loggedUserString}"></p:outputLabel>
-					<p:spacer width="10" height="10" />
+					<p:spacer width="30" height="20" />
 					
 					<p:outputLabel for="basic" value="Theme:" /> 
-					<p:themeSwitcher id="basic" style="width:110px;" value="#{themeSwitcherView.selectedTheme}" >
+					<p:themeSwitcher id="basic" style="width:150px;" value="#{themeSwitcherView.selectedTheme}" >
             			<f:selectItems value="#{themeSwitcherView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"></f:selectItems>
             			<p:ajax listener="#{themeSwitcherView.saveTheme}" />
         			</p:themeSwitcher>
     
-					<p:spacer width="10" height="10" />
+					<p:spacer width="30" height="20" />
 					
 					<p:commandLink id="nonAjax" action="#{userBean.logoutUser}" ajax="false">
 					        <h:outputText value="Logout" />
-					 </p:commandLink>
+					    </p:commandLink>
 					   
-					 
-					    
 						</f:facet>
 						</p:toolbar>
 				 </div>
 				
 				
-			<ui:include src="/pages/includes/header.xhtml" />
 			
-				
+			
+				<ui:include src="/pages/includes/header.xhtml" />
 			
 			</h:form>
 			</f:facet>
@@ -61,7 +61,6 @@
 			
 			<p:panel id="content">
 				<ui:insert name="content">
-					
 					<ui:include src="#{navBean.pageName}" />
 				</ui:insert>
 			</p:panel>

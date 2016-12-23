@@ -16,7 +16,7 @@
 .banner_holderImage{
     height: 100%;
     position:relative;
-    background:   url(#{request.contextPath}/resources/images/banner2.png)no-repeat;
+    background:   url(#{request.contextPath}/resources/images/banner.png)no-repeat;
     background-size: cover;
     background-position: center;
 }
