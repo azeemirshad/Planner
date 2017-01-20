@@ -27,7 +27,9 @@ import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.bytecode.javassist.FieldHandled;
 import org.hibernate.bytecode.javassist.FieldHandler;
 
+import com.plan.utils.DateUtils;
 import com.plan.utils.Environment;
+import com.plan.utils.MessageConstants;
 
 
 
@@ -189,6 +191,30 @@ public class WfPlanner
 			return attendedBy.get(0).getName()+"  ...";
 		}else
 			return "";
+	}
+	
+	public String getAttendedByDetail() {
+		StringBuilder builder = new StringBuilder();
+		int i = 0;
+		for (WfAttendedBy attendee : this.getAttendedBy()) {
+			if(i>0)
+				builder.append(", ");
+			builder.append(attendee.getName() );
+			i++;
+		}
+		return builder.toString();
+	}
+	
+	
+	public int getStyle(){
+		if(DateUtils.isWithinMinutesFuture(this.eventTime, MessageConstants.Constants.BLINK_TIME))
+			return 1;
+		if( DateUtils.isToday(this.eventTime))
+			return 2;
+		else if( DateUtils.isWithinDaysFuture(this.eventTime,1))
+			return 3;
+		else 
+			return 4;
 	}
 	
 }

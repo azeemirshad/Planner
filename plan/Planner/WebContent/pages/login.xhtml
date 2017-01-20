@@ -14,7 +14,7 @@
 
 	 	<div class="container">
 		<div align="center">
-	    <h1 style="font-size:24px;font-weight:bold;">DG Commitments</h1><span>EME Dte</span>
+	    <h1 style="font-size:24px;font-weight:bold;">IHD / CMTs</h1><span>EME Dte</span>
 	   
 	  </div>
 	<br/>
@@ -27,8 +27,8 @@
 
           <fieldset class="clearfix">
           <div align="center"><p:graphicImage name="images/calendar.gif" style="border-radius: 8px 8px 8px 8px; color: #606468;"></p:graphicImage></div>
-			<p><span class="fontawesome-user"></span><p:inputText  value="#{userBean.toSearchUser.userName}" label="Username" placeholder="Username" /></p> <!-- JS because of IE support; better: placeholder="Username" -->
-            <p><span class="fontawesome-lock"></span><p:password  value="#{userBean.toSearchUser.password}" label="Password" placeholder="Password"/> </p> <!-- JS because of IE support; better: placeholder="Password" -->
+			<p><span class="fontawesome-user"></span><p:inputText  value="#{userBean.toSearchUser.userName}" label="Username" placeholder="Username" style="color:white;" /></p> <!-- JS because of IE support; better: placeholder="Username" -->
+            <p><span class="fontawesome-lock"></span><p:password  value="#{userBean.toSearchUser.password}" label="Password" placeholder="Password" style="color:white;"/> </p> <!-- JS because of IE support; better: placeholder="Password" -->
             <p><h:commandButton value="Sign In" action="#{userBean.loginAction}"/>
            </p>
 

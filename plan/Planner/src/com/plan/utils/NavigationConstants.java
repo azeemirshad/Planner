@@ -9,6 +9,7 @@ public class NavigationConstants {
 	static final public String FAILURE = "failure";
 	static final public String LOGOUT = "logoutExit";
 	
+	public static String DISPLAY_NAVIGATION = "/pages/displayPage.xhtml?faces-redirect=true";
 	public static String HOME_NAVIGATION = "/pages/homePage.xhtml?faces-redirect=true";
 	public static String LOGOUT_NAVIGATION = "/pages/logout.xhtml?faces-redirect=true";	
 	

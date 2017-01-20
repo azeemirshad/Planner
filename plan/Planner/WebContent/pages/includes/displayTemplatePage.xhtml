@@ -16,47 +16,35 @@
 
 		<p:layoutUnit position="center" style="margin-top:70px;" >
 		
-			<!--  f:facet name="header" -->
+			
 				<h:form>
 				
 				<!--  p:graphicImage name="images/banner.png"  ></p:graphicImage -->
-				<div class="banner_holder">
+				<div class="banner_holder" >
     				<div class="banner_holderImage"></div>  
-				<p:toolbar style="background: none !important;border: none !important;position:absolute;top:90px;right:12px;color:black !important;">	
+				<p:toolbar style="background: none !important;border: none !important;position:absolute;top:1px;right:1px;color:black !important;">	
 				
 
 				
 				
 				<f:facet name="right" >
-				
-					<p:outputLabel value="#{userBean.loggedUserString}"></p:outputLabel>
-					<p:spacer width="10" height="10" />
-					
+				<h:panelGrid columns="3" columnClasses="verticalAlign">
 					<p:outputLabel for="basic" value="Theme:" /> 
-					<p:themeSwitcher id="basic" style="width:110px;" value="#{themeSwitcherView.selectedTheme}" >
+					<p:themeSwitcher id="basic" style="width:110px;" value="#{themeSwitcherView.selectedTheme}" label="Theme Selection">
             			<f:selectItems value="#{themeSwitcherView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"></f:selectItems>
             			<p:ajax listener="#{themeSwitcherView.saveTheme}" />
         			</p:themeSwitcher>
-    
-					<p:spacer width="10" height="10" />
+    				<p:commandButton icon="fa fa-fw fa-power-off" title="Logout" 
+    					action="#{userBean.logoutUser}" ajax="highlight">
 					
-					<p:commandLink id="nonAjax" action="#{userBean.logoutUser}" ajax="false">
-					        <h:outputText value="Logout" />
-					 </p:commandLink>
-					   
-					 
-					    
+					</p:commandButton>
+					</h:panelGrid>
 						</f:facet>
 						</p:toolbar>
 				 </div>
-				
-				
-			<ui:include src="/pages/includes/header.xhtml" />
-			
-				
 			
 			</h:form>
-			<!--  /f:facet   --> 
+			
 			
 			
 			<p:panel id="content">
@@ -65,12 +53,6 @@
 					<ui:include src="#{navBean.pageName}" />
 				</ui:insert>
 			</p:panel>
-			<!--  f:facet name="footer">
-				<div align="center">Powered by : 
-				<a href ="http://www.techovative.co" style="color:white">Techovative Solutions</a>
-				</div>
-				
-			</f:facet -->
 			
 		</p:layoutUnit>
 	</p:layout>

@@ -13,8 +13,8 @@
 		xmlns:f="http://java.sun.com/jsf/core"
 		xmlns:p="http://primefaces.org/ui"
 		template="/pages/includes/templatePage.xhtml">
-		<ui:define name="title">DG EME - IHD/CMTs</ui:define>
-		<ui:define name="top">DG EME - IHD/CMTs</ui:define>
+		<ui:define name="title">EME Dte - IHD/CMTs</ui:define>
+		<ui:define name="top">EME Dte - IHD/CMTs</ui:define>
 		<ui:define name="content">
 			<h:form id="homeform1">
   					<div align="center">
@@ -22,7 +22,7 @@
   					<p:poll interval="60" rendered="true" listener="#{addPlannerBean.updateCurrentCmts}" update="plansTable" />
   					<p:dataTable var="cmt" value="#{addPlannerBean.plansList}" widgetVar="cmtsTable" id="plansTable" 
                  		emptyMessage="No records found" filteredValue="#{addPlannerBean.filteredPlansList}"
-                 		paginatorPosition="top" editable="true" rows="12" paginator="true"
+                 		paginatorPosition="top" editable="true" rows="12" paginator="true" rowStyleClass="#{cmt.style == 1 ? 'blinking_red' : cmt.style == 2 ? 'row_red' : cmt.style == 3 ? 'row_green' : null }"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}">
  						<f:facet name="{Exporters}">
 				 		<div style="float:right">
@@ -100,11 +100,11 @@
 								<f:setPropertyActionListener target="#{addPlannerBean.selectedPlan}" value="#{cmt}" />
 							</p:commandButton>
 							<p:commandButton action="#{navBean.navUpdatePlannerDetails}" icon="fa fa-fw fa-edit" title="Edit" 
-									rendered="#{userBean.currentUser.section == cmt.insertBy.section}">
+									rendered="#{userBean.currentUser.section == cmt.insertBy.section || userBean.currentUser.roleAdmin == 'Y'}">
 								<f:setPropertyActionListener target="#{addPlannerBean.toAddPlan}" value="#{cmt}" />
 							</p:commandButton>
 							<p:commandButton action="#{addPlannerBean.deletePlan}" icon="fa fa-fw fa-trash"  title="Delete" update="plansTable"
-									rendered="#{userBean.currentUser.section == cmt.insertBy.section}">
+									rendered="#{userBean.currentUser.section == cmt.insertBy.section || userBean.currentUser.roleAdmin == 'Y'}">
 								<f:setPropertyActionListener target="#{addPlannerBean.toAddPlan}" value="#{cmt}" />
 								<p:confirm header="Confirmation" message="Are you sure you want to delete this IHD/CMT?" icon="fa fa-fw fa-warning" />
 							</p:commandButton>

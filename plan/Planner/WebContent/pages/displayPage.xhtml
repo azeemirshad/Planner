@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		template="/pages/includes/displayTemplatePage.xhtml">
+		<ui:define name="title">EME Dte - IHD/CMTs</ui:define>
+		<ui:define name="top">EME Dte - IHD/CMTs</ui:define>
+		<ui:define name="content">
+			<h:form id="homeform1">
+  					<div align="center" style="text-align:center;">
+  					<!--  p:panel id="panel1" header="#{crit.pageTitle}" style="text-align: center;"  -->
+  					<p:poll interval="60" rendered="true" listener="#{addPlannerBean.updateCurrentCmts}" update="plansTable" />
+  					<p:dataTable var="cmt" value="#{addPlannerBean.plansList}" widgetVar="cmtsTable" id="plansTable" style="font-size:20px!important;"
+                 		emptyMessage="No records found" filteredValue="#{addPlannerBean.filteredPlansList}" scrollable="true" scrollHeight="70%"
+                 		rowStyleClass="#{cmt.style == 1 ? 'blinking_red' : cmt.style == 2 ? 'row_red' : cmt.style == 3 ? 'row_green' : null }">
+                 		
+ 						<p:column filterBy="#{cmt.eventTime}" headerText="Date - Time" filterMatchMode="contains" sortBy="#{cmt.eventTime}">
+		      				<h:outputText value="#{cmt.eventTime}" >
+				            	<f:convertDateTime pattern="dd/MM/yyyy HH:mm"></f:convertDateTime>
+				            </h:outputText>
+				        </p:column>
+				 
+				        <p:column headerText="IHD-CMT" sortBy="#{cmt.topic}" filterBy="#{cmt.topic}" filterMatchMode="contains">
+
+				            <h:outputText value="#{cmt.topic}" />
+				        </p:column>
+				         <p:column headerText="Location" sortBy="#{cmt.location}"  filterBy="#{cmt.location}" filterMatchMode="contains">
+				            <h:outputText value="#{cmt.location}" />
+				        </p:column>
+				        
+				        <p:column headerText="Chaired By" sortBy="#{cmt.chairedBy}" filterBy="#{cmt.chairedBy}" filterMatchMode="in">
+				        	<f:facet name="filter">
+				                <p:selectCheckboxMenu label="Select" onchange="PF('cmtsTable').filter()" panelStyle="width:125px" scrollHeight="150">
+				                    <f:selectItems value="#{addPlannerBean.chairedBys}" />
+				                </p:selectCheckboxMenu>
+				            </f:facet>
+				            <h:outputText value="#{cmt.chairedBy}" />
+				        </p:column>
+				        
+				        <p:column headerText="Attended By" exportable="false" style="text-align: left;" >
+				        	<h:outputText value="#{cmt.attendedByDetail}" style="font-size:12px!important;" />
+				        </p:column>
+				 
+				        <p:column filterBy="#{cmt.insertBy.section}" headerText="Section" filterMatchMode="in" sortBy="#{cmt.insertBy.section}" style="width: 8%">
+				            <f:facet name="filter">
+				                <p:selectCheckboxMenu label="Section" onchange="PF('cmtsTable').filter()" panelStyle="width:125px" scrollHeight="150">
+				                    <f:selectItems value="#{addPlannerBean.allSections}" />
+				                </p:selectCheckboxMenu>
+				            </f:facet>
+				            <h:outputText value="#{cmt.insertBy.section}" />
+				        </p:column>
+					 	    
+				        
+				    </p:dataTable>
+					
+				    <!--  /p:panel -->
+				</div>
+				
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

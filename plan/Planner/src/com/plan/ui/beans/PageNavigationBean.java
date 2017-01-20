@@ -45,6 +45,15 @@ public class PageNavigationBean implements Serializable
 		return pageName;
 	}
 	
+	public String navDisplayPage() {
+		System.out.println("PageNavigationBean displayPage.xhtml");
+		(( AddPlannerBean )FacesUtils.getManagedBean( "addPlannerBean" ) ).searchCurrentCmts();
+		pageName = NavigationConstants.DISPLAY_NAVIGATION;
+//		pageTitle = MessageConstants.Constants.PageTitles.HOME_PAGE;
+		cb.setPageTitle(MessageConstants.Constants.PageTitles.HOME_PAGE);
+		return pageName;
+	}
+	
 	public String navLogOut() {
 		System.out.println("PageNavigationBean logout.xhtml");
 //		UserBean.KEY_CURRENT_USER = null;

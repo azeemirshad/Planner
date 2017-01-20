@@ -2,21 +2,54 @@
 
 .banner_holder{
     width: 100%;
-    height: 140px;
+    height: 120px;
     min-height: 80px;
     position: relative;
     float: top left;
-    outline:1px dotted blue;
+    
+    background: none;
 }
 
 .btn{
 	
 }
 
+.row_red{
+	color: red !important;
+}
+
+.row_yellow{
+	color: yellow !important;
+}
+.row_purple{
+	color: purple !important;
+}
+.row_blue{
+	color: blue !important;
+}
+.row_fuchsia{
+	color: fuchsia !important;
+}
+.row_green{
+	color: green !important;
+}
+.blinking_red {
+  color: red !important;
+  animation: blinker 1.5s linear infinite;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0; }
+}
+
+.verticalAlign {
+    vertical-align: top;
+}
+
 .banner_holderImage{
     height: 100%;
     position:relative;
-    background:   url(#{request.contextPath}/resources/images/banner.png)no-repeat;
+    background:   url(#{request.contextPath}/resources/images/banner2.png)no-repeat;
     background-size: cover;
     background-position: center;
 }

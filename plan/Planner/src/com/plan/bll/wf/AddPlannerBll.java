@@ -128,6 +128,7 @@ public class AddPlannerBll
 			Criteria cr = session.createCriteria(ApplicationUsers.class);
 			cr.setProjection(Projections.distinct(Projections.property("section")));
 			cr.add(Restrictions.eq("profileStatus", MessageConstants.Constants.PROFILE_CURRENT));
+			cr.add(Restrictions.ne("section","Display"));
 			cr.addOrder(Order.asc("section"));
 			list = cr.list();
 		}
@@ -140,6 +141,9 @@ public class AddPlannerBll
 		{
 			HibernateUtilsAnnot.closeSession();
 		}
+		
+		System.out.println("Sections List size "+ list.size());
+		System.out.println( list);
 		
 		return list;
 	}
@@ -274,22 +278,22 @@ public class AddPlannerBll
 			tx = session.beginTransaction();
 			ApplicationUsers currentUser = new ApplicationUsers(); 
 			currentUser = ub.getCurrentUser();
-			Calendar sDate = Calendar.getInstance(); 
-			sDate.setTime(toAdd.getEventTime());
-			sDate.add(Calendar.MINUTE, -MessageConstants.Constants.MINIMUM_INTERVAL);
-			
-			Calendar eDate = Calendar.getInstance(); 
-			eDate.setTime(toAdd.getEventTime());
-			eDate.add(Calendar.MINUTE, MessageConstants.Constants.MINIMUM_INTERVAL);
-			
-			Criteria cr = session.createCriteria(WfPlanner.class);
-			cr.add(Restrictions.between("eventTime", sDate.getTime(), eDate.getTime()));
-			cr.setProjection(Projections.rowCount());
+//			Calendar sDate = Calendar.getInstance(); 
+//			sDate.setTime(toAdd.getEventTime());
+//			sDate.add(Calendar.MINUTE, -MessageConstants.Constants.MINIMUM_INTERVAL);
+//			
+//			Calendar eDate = Calendar.getInstance(); 
+//			eDate.setTime(toAdd.getEventTime());
+//			eDate.add(Calendar.MINUTE, MessageConstants.Constants.MINIMUM_INTERVAL);
+//			
+//			Criteria cr = session.createCriteria(WfPlanner.class);
+//			cr.add(Restrictions.between("eventTime", sDate.getTime(), eDate.getTime()));
+//			cr.setProjection(Projections.rowCount());
 			
 				if(toAdd.getId() == null || toAdd.getId()<1)
 				{
-					Integer count =(Integer) cr.uniqueResult();
-					if(count == 0){
+//					Integer count =(Integer) cr.uniqueResult();
+//					if(count == 0){
 					
 					toAdd.setInsertBy(currentUser);	
 					toAdd.setUpdateBy(currentUser);	
@@ -299,17 +303,17 @@ public class AddPlannerBll
 					
 	//				Adding track report
 					saveTrackReport(MessageConstants.Constants.TrackActions.PLAN_SAVED, toAdd, session);
-					}else
-					{
-						throw new Exception("This time slot is not aval, please choose a different one.");
-					}
+//					}else
+//					{
+//						throw new Exception("This time slot is not aval, please choose a different one.");
+//					}
 				}
 				else if(toAdd.getId() != null && toAdd.getId()>=1)
 				{
 					
-					cr.add(Restrictions.ne("id", toAdd.getId()));
-					Integer count =(Integer) cr.uniqueResult();
-					if(count == 0){
+//					cr.add(Restrictions.ne("id", toAdd.getId()));
+//					Integer count =(Integer) cr.uniqueResult();
+//					if(count == 0){
 	//				Adding track report
 						//saveTrackReport(MessageConstants.Constants.TrackActions.PLAN_UPDATED, toAdd, session);
 						List<WfAttendedBy> attendees  = session.createCriteria(WfAttendedBy.class).add(Restrictions.eq("plannerId.id", toAdd.getId())).list();
@@ -325,10 +329,10 @@ public class AddPlannerBll
 						toAdd.setUpdateDate(new Date());
 						session.merge(toAdd);
 						saveTrackReport(MessageConstants.Constants.TrackActions.PLAN_UPDATED, toAdd, session);
-					}else
-					{
-						throw new Exception("This time slot is not aval, please choose a different one.");
-					}
+//					}else
+//					{
+//						throw new Exception("This time slot is not aval, please choose a different one.");
+//					}
 				}
 			
 			

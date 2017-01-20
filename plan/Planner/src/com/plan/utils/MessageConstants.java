@@ -22,6 +22,7 @@ public final class MessageConstants {
 
 	public static final class Constants 
 	{
+		public static final String DISPLAY_UNIT = "Display";
 		public static final String PASSWORD_KEY = "1";
 		public static final String PROFILE_CURRENT = "Current";
 		public static final String SELECT_ONE_STRING = "Select One";
@@ -45,6 +46,8 @@ public final class MessageConstants {
 		public static final String VERIFIED_STRING = "Verified";
 		
 		public static final Integer MINIMUM_INTERVAL = Integer.valueOf(Environment.getProperty("minimumInterval"));
+		
+		public static final Integer BLINK_TIME = Integer.valueOf(Environment.getProperty("blinkTime"));
 
 		public static final class ClientStatus {
 			

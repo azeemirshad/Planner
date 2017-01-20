@@ -82,7 +82,10 @@ public class UserBean
 					this.loggedUserString = ((ApplicationUsers) FacesUtils.getFromSession(KEY_CURRENT_USER))
 							.getLoggedUserString();
 					System.out.println(this.loggedUserString);
-					return (( PageNavigationBean )FacesUtils.getManagedBean( "navBean" ) ).navHomePage();
+					if(currentUser.getSection().equals(MessageConstants.Constants.DISPLAY_UNIT) )
+						return (( PageNavigationBean )FacesUtils.getManagedBean( "navBean" ) ).navDisplayPage();
+					else
+						return (( PageNavigationBean )FacesUtils.getManagedBean( "navBean" ) ).navHomePage();
 				}
 				else 
 				{
