@@ -10,6 +10,23 @@
     background: none;
 }
 
+.banner_holderImage{
+    height: 100%;
+    position:relative;
+    background:   url(#{request.contextPath}/resources/images/banner3.png)no-repeat;
+    -webkit-background-size: 100%, auto;
+  	-moz-background-size: 100%, auto;
+  	-o-background-size: 100%, auto;
+  	background-size: 100%, auto;
+    background-position: center;
+    
+}
+img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+
 .btn{
 	
 }
@@ -36,6 +53,9 @@
 .blinking_red {
   color: red !important;
   animation: blinker 1.5s linear infinite;
+  
+    -webkit-transform: translate3d(0,0,0);
+
 }
 
 @keyframes blinker {  
@@ -46,13 +66,7 @@
     vertical-align: top;
 }
 
-.banner_holderImage{
-    height: 100%;
-    position:relative;
-    background:   url(#{request.contextPath}/resources/images/banner2.png)no-repeat;
-    background-size: cover;
-    background-position: center;
-}
+
 .labels {
      font-weight: bold;
      font-size: 12px;

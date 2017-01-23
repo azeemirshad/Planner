@@ -8,7 +8,7 @@
 <h:head>
 	<h:outputStylesheet library="css" name="style.css" />
 	<link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
-	<title>EME Dte - IHD/CMTs</title>
+	<title>EME Dte- IHD/CMTs</title>
 	
 </h:head>
 <h:body>
@@ -22,15 +22,15 @@
 				<!--  p:graphicImage name="images/banner.png"  ></p:graphicImage -->
 				<div class="banner_holder" >
     				<div class="banner_holderImage"></div>  
-				<p:toolbar style="background: none !important;border: none !important;position:absolute;top:1px;right:1px;color:black !important;">	
+				<p:toolbar style="background: none !important;border: none !important;position:absolute;top:0px;right:0px;color:black !important;">	
 				
 
 				
 				
 				<f:facet name="right" >
 				<h:panelGrid columns="3" columnClasses="verticalAlign">
-					<p:outputLabel for="basic" value="Theme:" /> 
-					<p:themeSwitcher id="basic" style="width:110px;" value="#{themeSwitcherView.selectedTheme}" label="Theme Selection">
+					 
+					<p:themeSwitcher id="basic" style="width:100px;" value="#{themeSwitcherView.selectedTheme}" label="Theme Selection">
             			<f:selectItems value="#{themeSwitcherView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"></f:selectItems>
             			<p:ajax listener="#{themeSwitcherView.saveTheme}" />
         			</p:themeSwitcher>

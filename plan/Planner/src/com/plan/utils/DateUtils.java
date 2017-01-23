@@ -58,18 +58,6 @@ public class DateUtils {
         return isSameDay(date, Calendar.getInstance().getTime());
     }
     
-    
-    
-    /**
-     * <p>Checks if a calendar date is today.</p>
-     * @param cal  the calendar, not altered, not null
-     * @return true if cal date is today
-     * @throws IllegalArgumentException if the calendar is <code>null</code>
-     */
-    public static boolean isToday(Calendar cal) {
-        return isSameDay(cal, Calendar.getInstance());
-    }
-    
     /**
      * <p>Checks if the first date is before the second date ignoring time.</p>
      * @param date1 the first date, not altered, not null

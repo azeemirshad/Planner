@@ -19,7 +19,7 @@
 			<h:form id="homeform1">
   					<div align="center">
   					<p:panel id="panel1" header="#{crit.pageTitle}" style="text-align: center;" >
-  					<p:poll interval="60" rendered="true" listener="#{addPlannerBean.updateCurrentCmts}" update="plansTable" />
+  					<p:poll interval="30" rendered="true" listener="#{addPlannerBean.updateCurrentCmts}" update="plansTable" />
   					<p:dataTable var="cmt" value="#{addPlannerBean.plansList}" widgetVar="cmtsTable" id="plansTable" 
                  		emptyMessage="No records found" filteredValue="#{addPlannerBean.filteredPlansList}"
                  		paginatorPosition="top" editable="true" rows="12" paginator="true" rowStyleClass="#{cmt.style == 1 ? 'blinking_red' : cmt.style == 2 ? 'row_red' : cmt.style == 3 ? 'row_green' : null }"
